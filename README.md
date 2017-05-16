@@ -14,8 +14,8 @@ This tool goes through your dependencies, compares them with the versions specif
 - Ionic Native
 - Ionic Storage
 - Other: ionicons, rxjs, sw-toolbox, zone.js
-- Your default devDependencies: Ionic App-Scripts, Ionic-CLI-Plugins, typescript
+- DevDependencies: Ionic App-Scripts, Ionic-CLI-Plugins, typescript
 
 ### What this tool will not update
-- All the other dependencies
+- All your custom dependencies
 - Your code

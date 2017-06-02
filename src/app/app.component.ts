@@ -11,10 +11,44 @@ export class AppComponent {
   input = '';
   output = '';
 
+  ionicJson = {
+    "dependencies": {
+      "@angular/common": "4.1.2",
+      "@angular/compiler": "4.1.2",
+      "@angular/compiler-cli": "4.1.2",
+      "@angular/core": "4.1.2",
+      "@angular/forms": "4.1.2",
+      "@angular/http": "4.1.2",
+      "@angular/platform-browser": "4.1.2",
+      "@angular/platform-browser-dynamic": "4.1.2",
+      "@ionic-native/core": "3.6.1",
+      "@ionic-native/splash-screen": "3.6.1",
+      "@ionic-native/status-bar": "3.6.1",
+      "@ionic/storage": "2.0.1",
+      "ionic-angular": "3.3.0",
+      "ionicons": "3.0.0",
+      "rxjs": "5.1.1",
+      "sw-toolbox": "3.6.0",
+      "zone.js": "0.8.10"
+    },
+    "devDependencies": {
+      "@ionic/app-scripts": "1.3.7",
+      "typescript": "2.3.3"
+    }
+  };
+
   processInput(): void {
     if(this.isValidJson(this.input))
     {
-      this.output = this.input;
+      let json = JSON.parse(this.input);
+      let ionicDependencies = this.ionicJson.dependencies;
+      for (var key in ionicDependencies) {
+        if (ionicDependencies.hasOwnProperty(key)) {
+          console.log(key + " -> " + ionicDependencies[key]);
+          json.dependencies[key] = ionicDependencies[key];
+        }
+      }
+      this.output = JSON.stringify(json, null, 2);
     }
     else
     {

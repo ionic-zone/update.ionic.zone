@@ -12,6 +12,24 @@ export class AppComponent {
   output = '';
 
   processInput(): void {
-    this.output = this.input;
+    if(this.isValidJson(this.input))
+    {
+      this.output = this.input;
+    }
+    else
+    {
+      alert('input is no valid json');
+    }
+
   }
+
+  isValidJson(str): boolean {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+  }
+
 }

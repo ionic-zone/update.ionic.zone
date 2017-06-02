@@ -9,4 +9,9 @@ export class AppComponent {
   title = 'update.ionic.zone';
 
   input = '';
+  output = '';
+
+  processInput(): void {
+    this.output = this.input;
+  }
 }

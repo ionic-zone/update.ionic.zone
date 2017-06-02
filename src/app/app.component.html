@@ -4,10 +4,10 @@
 
 Input:<br>
 <textarea [(ngModel)]="input" name="input"></textarea><br>
-<input type="submit" value="Process Input"><br>
+<button (click)="processInput()">Process Input</button>
 
 <hr>
 
 Output:<br>
 <div>{{input}}</div>
-<textarea name="output"></textarea><br>
+<textarea name="output">{{output}}</textarea><br>

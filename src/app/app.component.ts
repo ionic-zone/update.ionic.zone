@@ -11,6 +11,7 @@ export class AppComponent {
   input = '';
   output = '';
 
+  // TODO Service
   ionicJson = {
     "dependencies": {
       "@angular/common": "4.1.2",
@@ -40,6 +41,7 @@ export class AppComponent {
   processInput(): void {
     if(this.isValidJson(this.input))
     {
+      // TODO Service
       let json = JSON.parse(this.input);
       let ionicDependencies = this.ionicJson.dependencies;
       for (var key in ionicDependencies) {
@@ -48,6 +50,7 @@ export class AppComponent {
           json.dependencies[key] = ionicDependencies[key];
         }
       }
+      // End TODO
       this.output = JSON.stringify(json, null, 2);
     }
     else
@@ -57,6 +60,7 @@ export class AppComponent {
 
   }
 
+  // TODO Util Service?
   isValidJson(str): boolean {
     try {
         JSON.parse(str);

@@ -3,10 +3,11 @@
 </h1>
 
 Input:<br>
-<textarea name="input"></textarea><br>
+<textarea [(ngModel)]="input" name="input"></textarea><br>
 <input type="submit" value="Process Input"><br>
 
 <hr>
 
 Output:<br>
+<div>{{input}}</div>
 <textarea name="output"></textarea><br>

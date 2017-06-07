@@ -39,14 +39,14 @@ export class AppComponent {
   };
 
   processInput(): void {
-    if(this.isValidJson(this.input))
+    if (this.isValidJson(this.input))
     {
       // TODO Service
-      let json = JSON.parse(this.input);
+      const json = JSON.parse(this.input);
       let ionicDependencies = this.ionicJson.dependencies;
-      for (var key in ionicDependencies) {
+      for (let key in ionicDependencies) {
         if (ionicDependencies.hasOwnProperty(key)) {
-          console.log(key + " -> " + ionicDependencies[key]);
+          console.log(key + ' -> ' + ionicDependencies[key]);
           json.dependencies[key] = ionicDependencies[key];
         }
       }

@@ -45,7 +45,7 @@ export class AppComponent {
       const json = JSON.parse(this.input);
       let ionicDependencies = this.ionicJson.dependencies;
       for (let key in ionicDependencies) {
-        if (ionicDependencies.hasOwnProperty(key)) {
+        if (ionicDependencies.hasOwnProperty(key)) { // TODO Why is this here?
           console.log(key + ' -> ' + ionicDependencies[key]);
           json.dependencies[key] = ionicDependencies[key];
         }
@@ -61,7 +61,7 @@ export class AppComponent {
   }
 
   // TODO Util Service?
-  isValidJson(str): boolean {
+  isValidJson(str: string): boolean {
     try {
         JSON.parse(str);
     } catch (e) {

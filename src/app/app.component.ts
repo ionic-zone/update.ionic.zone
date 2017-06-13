@@ -11,45 +11,90 @@ export class AppComponent {
   input = '';
   output = '';
 
+  // TODO Service
   versions = [
-    { name: 'v3.3.0', date: '2017-05-24' }
+    {
+      name: 'v3.3.0',
+      date: '2017-05-24',
+      json: { // tslint:disable:quotemark
+        "dependencies": {
+          "@angular/common": "4.1.2",
+          "@angular/compiler": "4.1.2",
+          "@angular/compiler-cli": "4.1.2",
+          "@angular/core": "4.1.2",
+          "@angular/forms": "4.1.2",
+          "@angular/http": "4.1.2",
+          "@angular/platform-browser": "4.1.2",
+          "@angular/platform-browser-dynamic": "4.1.2",
+          "@ionic-native/core": "3.6.1",
+          "@ionic-native/splash-screen": "3.6.1",
+          "@ionic-native/status-bar": "3.6.1",
+          "@ionic/storage": "2.0.1",
+          "ionic-angular": "3.3.0",
+          "ionicons": "3.0.0",
+          "rxjs": "5.1.1",
+          "sw-toolbox": "3.6.0",
+          "zone.js": "0.8.10"
+        },
+        "devDependencies": {
+          "@ionic/app-scripts": "1.3.7",
+          "typescript": "2.3.3"
+        }
+      },
+      notes: [
+        'Another optional step is to remove the `src/declarations.d.ts` file. This is a legacy file introduced early with `ionic-angular` projects to improve compatibility between TypeScript and third-party libraries. Due to improvements in TypeScript, this file is no longer necessary. By removing this file, the TypeScript compiler will be able to provide more accurate error messages for `import` statements.',
+      ]
+    },
+    {
+      name: 'v3.2.0',
+      date: '2017-05-10',
+      json: {
+        "dependencies": {
+          "@angular/common": "4.1.0",
+          "@angular/compiler": "4.1.0",
+          "@angular/compiler-cli": "4.1.0",
+          "@angular/core": "4.1.0",
+          "@angular/forms": "4.1.0",
+          "@angular/http": "4.1.0",
+          "@angular/platform-browser": "4.1.0",
+          "@angular/platform-browser-dynamic": "4.1.0",
+          "@ionic-native/core": "3.6.1",
+          "@ionic-native/splash-screen": "3.6.1",
+          "@ionic-native/status-bar": "3.6.1",
+          "@ionic/storage": "2.0.1",
+          "ionic-angular": "3.2.1",
+          "ionicons": "3.0.0",
+          "rxjs": "5.1.1",
+          "sw-toolbox": "3.6.0",
+          "zone.js": "0.8.10"
+        },
+        "devDependencies": {
+          "@ionic/app-scripts": "1.3.7",
+          "typescript": "2.2.1"
+        }
+      }
+    }
   ];
   version = this.versions[0].name;
 
-  // TODO Service
-  ionicJson = {
-    "dependencies": {
-      "@angular/common": "4.1.2",
-      "@angular/compiler": "4.1.2",
-      "@angular/compiler-cli": "4.1.2",
-      "@angular/core": "4.1.2",
-      "@angular/forms": "4.1.2",
-      "@angular/http": "4.1.2",
-      "@angular/platform-browser": "4.1.2",
-      "@angular/platform-browser-dynamic": "4.1.2",
-      "@ionic-native/core": "3.6.1",
-      "@ionic-native/splash-screen": "3.6.1",
-      "@ionic-native/status-bar": "3.6.1",
-      "@ionic/storage": "2.0.1",
-      "ionic-angular": "3.3.0",
-      "ionicons": "3.0.0",
-      "rxjs": "5.1.1",
-      "sw-toolbox": "3.6.0",
-      "zone.js": "0.8.10"
-    },
-    "devDependencies": {
-      "@ionic/app-scripts": "1.3.7",
-      "typescript": "2.3.3"
+  getIndexOfVersion(arr, k): number {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].name === k) {
+        return i;
+      }
     }
-  };
+  }
 
   processInput(): void {
     if (this.isValidJson(this.input))
     {
       // TODO Service
       const json = JSON.parse(this.input);
-      let ionicDependencies = this.ionicJson.dependencies;
-      for (let key in ionicDependencies) {
+      console.log('this.version is ', this.version);
+      const i = this.getIndexOfVersion(this.versions, this.version);
+      console.log('i is ', i);
+      const ionicDependencies = this.versions[i].json.dependencies;
+      for (const key in ionicDependencies) {
         if (ionicDependencies.hasOwnProperty(key)) { // TODO Why is this here?
           console.log(key + ' -> ' + ionicDependencies[key]);
           json.dependencies[key] = ionicDependencies[key];

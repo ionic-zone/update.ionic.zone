@@ -27,13 +27,19 @@
         </div>
         <h3>How to install MDL</h3>
         -->
-          <p>
-            This tools helps you to upgrade your Ionic Framework project to a specific version.
-          </p>
+        <p>
+          This tools helps you to upgrade your Ionic Framework project to a specific version.
+        </p>
 
-          <h3>Current <code>package.json</code></h3>
+        <h3>Current <code>package.json</code></h3>
         <mdl-textfield label="package.json" [(ngModel)]="input" rows="5" maxrows="10" floating-label></mdl-textfield>
+
         <br>
+
+        <mdl-select [(ngModel)]="version" placeholder="Select version">
+          <mdl-option *ngFor="let v of versions" [value]="v.name">{{v.name}} ({{v.date}})</mdl-option>
+        </mdl-select>
+
         <button (click)="processInput()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Process Input</button>
 
       </div>

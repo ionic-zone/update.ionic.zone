@@ -11,6 +11,11 @@ export class AppComponent {
   input = '';
   output = '';
 
+  versions = [
+    { name: 'v3.3.0', date: '2017-05-24' }
+  ];
+  version = this.versions[0].name;
+
   // TODO Service
   ionicJson = {
     "dependencies": {
@@ -55,7 +60,7 @@ export class AppComponent {
     }
     else
     {
-      alert('input is no valid json');
+      alert('input is no valid json\n(selected version is ' + this.version + ')');
     }
 
   }

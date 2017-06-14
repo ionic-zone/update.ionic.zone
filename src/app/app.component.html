@@ -31,25 +31,40 @@
           This tools helps you to upgrade your Ionic Framework project to a specific version.
         </p>
 
-        <h3>Current <code>package.json</code></h3>
-        <mdl-textfield label="package.json" [(ngModel)]="input" rows="5" floating-label style="width:100%"></mdl-textfield>
-        <br><button (click)="addExampleData()">Insert example package.json</button>
+<!--<input type="number" [(ngModel)]="activeTab" min="0" max="2">-->
+<mdl-tabs mdl-ripple [mdl-tab-active-index]="activeTab" (mdl-tab-active-changed)="tabChanged($event)">
+    <mdl-tab-panel>
+      <mdl-tab-panel-title>
+        <mdl-icon>content_paste</mdl-icon> <span>Input</span>
+      </mdl-tab-panel-title>
+      <mdl-tab-panel-content>
 
-        <br>
+       <!--<h3>Current <code>package.json</code></h3>-->
+        <div style="position:relative">
+          <mdl-textfield style="display:block;" label="Paste your current `package.json` here" [(ngModel)]="input" rows="15" floating-label style="width:100%; padding-bottom:0;"></mdl-textfield>
+          <button (click)="addExampleData()" style="position:absolute; top:10px; right:25px;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Paste example</button>
+        </div>
 
-        <mdl-select [(ngModel)]="version" placeholder="Select version">
+        <button (click)="processInput()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast" style="margin-right:10px;">Update</button>  to Ionic Framework
+        <mdl-select id="versionSelect" [(ngModel)]="version" placeholder="Select version" style="margin-left:10px;">
           <mdl-option *ngFor="let v of versions" [value]="v.name">{{v.name}} ({{v.date}})</mdl-option>
         </mdl-select>
 
-        <button (click)="processInput()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">Process `package.json`</button>
+      </mdl-tab-panel-content>
+    </mdl-tab-panel>
+    <mdl-tab-panel mdl-tab-panel-title="Output" [disabled]="!output">
+      <mdl-tab-panel-title>
+        <mdl-icon>content_copy</mdl-icon> <span>Output</span>
+      </mdl-tab-panel-title>
+      <mdl-tab-panel-content>
+      <!--<h3>Output</h3>
+      <textarea name="output">{{output}}</textarea>-->
+        <mdl-textfield label="Updated `package.json`" [(ngModel)]="output" rows="15" floating-label style="width:100%"></mdl-textfield>
 
-      </div>
-      <div *ngIf="output" class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+      </mdl-tab-panel-content>
+    </mdl-tab-panel>
+ </mdl-tabs>
 
-      <div *ngIf="output" class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-      <div *ngIf="output" class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-        <h3>Output</h3>
-        <textarea name="output">{{output}}</textarea>
       </div>
 
     </div>

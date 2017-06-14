@@ -11,7 +11,14 @@ export class AppComponent {
   input = '';
   output = '';
 
+  activeTab = 0;
+
+  public tabChanged({index}) {
+    this.activeTab = index;
+  }
+
   // TODO Service
+  // tslint:disable-next-line:member-ordering
   versions = [
     {
       name: 'v3.3.0',
@@ -42,6 +49,7 @@ export class AppComponent {
         }
       },
       notes: [
+        // tslint:disable-next-line:max-line-length
         'Another optional step is to remove the `src/declarations.d.ts` file. This is a legacy file introduced early with `ionic-angular` projects to improve compatibility between TypeScript and third-party libraries. Due to improvements in TypeScript, this file is no longer necessary. By removing this file, the TypeScript compiler will be able to provide more accurate error messages for `import` statements.',
       ]
     },
@@ -102,6 +110,7 @@ export class AppComponent {
       }
       // End TODO
       this.output = JSON.stringify(json, null, 2);
+      this.activeTab = 1; // TODO method
     }
     else
     {

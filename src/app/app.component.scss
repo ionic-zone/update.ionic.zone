@@ -3,6 +3,17 @@ textarea {
 	height:250px;
 }
 
+:host /deep/ .mdl-tabs__tab-bar {
+  justify-content: flex-start !important;
+}
+
+mdl-icon {
+  vertical-align: middle;
+}
+
+:host /deep/ mdl-select .mdl-textfield {
+  width:200px;
+}
 
 .demo-ribbon {
   width: 100%;

@@ -1,3 +1,4 @@
+import { MdlSnackbarService } from '@angular-mdl/core/components';
 import { Component } from '@angular/core';
 
 @Component({
@@ -12,6 +13,8 @@ export class AppComponent {
   output = '';
 
   activeTab = 0;
+
+  constructor(private mdlSnackbarService: MdlSnackbarService) {}
 
   public tabChanged({index}) {
     this.activeTab = index;
@@ -94,6 +97,10 @@ export class AppComponent {
   }
 
   processInput(): void {
+    if (this.input.length === 0) {
+      this.showSnackbar('Input can not be empty.');
+      return;
+    }
     if (this.isValidJson(this.input))
     {
       // TODO Service
@@ -114,9 +121,15 @@ export class AppComponent {
     }
     else
     {
-      alert('input is no valid json\n(selected version is ' + this.version + ')');
+      this.showSnackbar('Input has to be valid JSON');
     }
 
+  }
+
+  showSnackbar(message: string): void {
+    this.mdlSnackbarService.showSnackbar({
+      message:message,
+    });
   }
 
   // TODO Util Service?

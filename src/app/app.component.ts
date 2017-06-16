@@ -1,3 +1,4 @@
+import { RollbarService } from 'angular-rollbar';
 import { MdlSnackbarService } from '@angular-mdl/core/components';
 import { Component } from '@angular/core';
 
@@ -14,7 +15,7 @@ export class AppComponent {
 
   activeTab = 0;
 
-  constructor(private mdlSnackbarService: MdlSnackbarService) {}
+  constructor(private mdlSnackbarService: MdlSnackbarService, private rollbar: RollbarService) {}
 
   public tabChanged({index}) {
     this.activeTab = index;
@@ -148,6 +149,9 @@ export class AppComponent {
       // End TODO
       this.output = JSON.stringify(json, null, 2);
       this.activeTab = 1; // TODO method
+      // log
+      this.rollbar.info('input', null, this.input);
+      this.rollbar.info('output', null, this.output);
     }
     else
     {

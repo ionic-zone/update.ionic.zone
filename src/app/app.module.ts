@@ -1,3 +1,4 @@
+import { RollbarModule } from 'angular-rollbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,10 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule,
     MdlModule,
-    MdlSelectModule
+    MdlSelectModule,
+    RollbarModule.forRoot({
+      accessToken: 'fdd0ae5eaee044dfb5dfced2df20f4dd'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,9 +16,10 @@ Angular project built with Angular CLI.
 * unit tests: `ng test` 
 * end-to-end tests: `ng e2e` (befor that: `ng serve`)
 
-## Deploy to branch `gh-pages`
+## Deploy to `gh-pages` branch
 
 * `npm i -g angular-cli-ghpages`
 * `ng build -prod`
 * `echo "update.ionic.zone" > dist/CNAME`
 * `ngh`
+* Check [update.ionic.zone](https://update.ionic.zone)

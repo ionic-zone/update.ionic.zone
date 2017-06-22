@@ -127,6 +127,18 @@ export class AppComponent {
     }
   }
 
+  _processDependencies(current: any, template: any): any {
+    let updated = current;
+    for (const key in template) {
+        if (template.hasOwnProperty(key)) { // tslint for-in
+          console.log(key + ': ' + updated[key] + ' -> ' + template[key]);
+          updated[key] = template[key];
+        }
+      }
+    return updated;
+  }
+
+
   processInput(): void {
     if (this.input.length === 0) {
       this.showSnackbar('Input can not be empty.');
@@ -137,16 +149,14 @@ export class AppComponent {
       // TODO Service
       const json = JSON.parse(this.input);
       console.log('this.version is ', this.version);
+
       const i = this.getIndexOfVersion(this.versions, this.version);
       console.log('i is ', i);
-      const ionicDependencies = this.versions[i].json.dependencies;
-      for (const key in ionicDependencies) {
-        if (ionicDependencies.hasOwnProperty(key)) { // TODO Why is this here?
-          console.log(key + ' -> ' + ionicDependencies[key]);
-          json.dependencies[key] = ionicDependencies[key];
-        }
-      }
+
+      json.dependencies = this._processDependencies(json.dependencies, this.versions[i].json.dependencies);
+      json.devDependencies = this._processDependencies(json.devDependencies, this.versions[i].json.devDependencies);
       // End TODO
+
       this.output = JSON.stringify(json, null, 2);
       this.activeTab = 1; // TODO method
       // log

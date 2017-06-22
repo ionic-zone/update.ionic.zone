@@ -138,7 +138,6 @@ export class AppComponent {
     return updated;
   }
 
-
   processInput(): void {
     if (this.input.length === 0) {
       this.showSnackbar('Input can not be empty.');

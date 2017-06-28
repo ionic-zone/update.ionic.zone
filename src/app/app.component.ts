@@ -152,15 +152,18 @@ export class AppComponent {
       const i = this.getIndexOfVersion(this.versions, this.version);
       console.log('i is ', i);
 
-      json.dependencies = this._processDependencies(json.dependencies, this.versions[i].json.dependencies);
-      json.devDependencies = this._processDependencies(json.devDependencies, this.versions[i].json.devDependencies);
-      // End TODO
+      let template = this.versions[i].json;
+      json.dependencies = this._processDependencies(json.dependencies, template.dependencies);
+      json.devDependencies = this._processDependencies(json.devDependencies, template.devDependencies);
 
       this.output = JSON.stringify(json, null, 2);
-      this.activeTab = 1; // TODO method
+
       // log
       this.rollbar.info('input', null, this.input);
       this.rollbar.info('output', null, this.output);
+      // End TODO
+
+      this.activeTab = 1; // TODO method
     }
     else
     {

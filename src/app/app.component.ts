@@ -1,4 +1,4 @@
-import { RollbarService } from 'angular-rollbar';
+import { ReleaseService } from './release.service';
 import { MdlSnackbarService } from '@angular-mdl/core/components';
 import { Component } from '@angular/core';
 
@@ -8,240 +8,57 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'update.ionic.zone';
+  // title = 'update.ionic.zone';
 
   input = '';
   output = '';
-
   activeTab = 0;
-
   selectedVersionName = '';
+  releases = {};
 
-  // TODO Service
-  // tslint:disable:quotemark
-  // tslint:disable-next-line:member-ordering
-  versions = [
-    {
-      name: 'v3.4.0',
-      date: '2017-06-15',
-      json: {
-        "dependencies": {
-          "@angular/common": "4.1.3",
-          "@angular/compiler": "4.1.3",
-          "@angular/compiler-cli": "4.1.3",
-          "@angular/core": "4.1.3",
-          "@angular/forms": "4.1.3",
-          "@angular/http": "4.1.3",
-          "@angular/platform-browser": "4.1.3",
-          "@angular/platform-browser-dynamic": "4.1.3",
-          "@ionic-native/core": "3.12.1",
-          "@ionic-native/splash-screen": "3.12.1",
-          "@ionic-native/status-bar": "3.12.1",
-          "@ionic/storage": "2.0.1",
-          "ionic-angular": "3.4.0",
-          "ionicons": "3.0.0",
-          "rxjs": "5.4.0",
-          "sw-toolbox": "3.4.0",
-          "zone.js": "0.8.12"
-        },
-        "devDependencies": {
-          "@ionic/app-scripts": "1.3.7",
-          "typescript": "2.3.4"
-        }
-      }
-    },
-    {
-      name: 'v3.3.0',
-      date: '2017-05-24',
-      json: {
-        "dependencies": {
-          "@angular/common": "4.1.2",
-          "@angular/compiler": "4.1.2",
-          "@angular/compiler-cli": "4.1.2",
-          "@angular/core": "4.1.2",
-          "@angular/forms": "4.1.2",
-          "@angular/http": "4.1.2",
-          "@angular/platform-browser": "4.1.2",
-          "@angular/platform-browser-dynamic": "4.1.2",
-          "@ionic-native/core": "3.6.1",
-          "@ionic-native/splash-screen": "3.6.1",
-          "@ionic-native/status-bar": "3.6.1",
-          "@ionic/storage": "2.0.1",
-          "ionic-angular": "3.3.0",
-          "ionicons": "3.0.0",
-          "rxjs": "5.1.1",
-          "sw-toolbox": "3.6.0",
-          "zone.js": "0.8.10"
-        },
-        "devDependencies": {
-          "@ionic/app-scripts": "1.3.7",
-          "typescript": "2.3.3"
-        }
-      },
-      notes: [
-        // tslint:disable-next-line:max-line-length
-        'Another optional step is to remove the `src/declarations.d.ts` file. This is a legacy file introduced early with `ionic-angular` projects to improve compatibility between TypeScript and third-party libraries. Due to improvements in TypeScript, this file is no longer necessary. By removing this file, the TypeScript compiler will be able to provide more accurate error messages for `import` statements.',
-      ]
-    },
-    {
-      name: 'v3.2.0',
-      date: '2017-05-10',
-      json: {
-        "dependencies": {
-          "@angular/common": "4.1.0",
-          "@angular/compiler": "4.1.0",
-          "@angular/compiler-cli": "4.1.0",
-          "@angular/core": "4.1.0",
-          "@angular/forms": "4.1.0",
-          "@angular/http": "4.1.0",
-          "@angular/platform-browser": "4.1.0",
-          "@angular/platform-browser-dynamic": "4.1.0",
-          "@ionic-native/core": "3.6.1",
-          "@ionic-native/splash-screen": "3.6.1",
-          "@ionic-native/status-bar": "3.6.1",
-          "@ionic/storage": "2.0.1",
-          "ionic-angular": "3.2.1",
-          "ionicons": "3.0.0",
-          "rxjs": "5.1.1",
-          "sw-toolbox": "3.6.0",
-          "zone.js": "0.8.10"
-        },
-        "devDependencies": {
-          "@ionic/app-scripts": "1.3.7",
-          "typescript": "2.2.1"
-        }
-      }
-    }
-  ];
-  getIndexOfVersion(arr, k): number {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].name === k) {
-        return i;
-      }
-    }
-  }
-
-
-
-  constructor(private mdlSnackbarService: MdlSnackbarService, private rollbar: RollbarService) {
-    this.selectedVersionName = this.versions[0].name;
+  constructor(private mdlSnackbarService: MdlSnackbarService, private releaseService: ReleaseService) {
+    this.releases = this.releaseService.getAll();
+    this.selectedVersionName = this.releaseService.getDefaultVersionName();
   }
 
   public tabChanged({index}) {
     this.activeTab = index;
   }
 
-  _processDependencies(current: any, template: any): any {
-    let updated = current;
-    for (const key in template) {
-        if (template.hasOwnProperty(key)) { // tslint for-in
-          console.log(key + ': ' + updated[key] + ' -> ' + template[key]);
-          updated[key] = template[key];
-        }
-      }
-    return updated;
+  public addExampleData(): void {
+    this.input = this.releaseService.getExample();
   }
 
-  processInput(): void {
+  public processInput(): void {
     if (this.input.length === 0) {
-      this.showSnackbar('Input can not be empty.');
+      this._showSnackbar('Input can not be empty.');
       return;
     }
-    if (this.isValidJson(this.input)) {
-      // TODO Service
-      const json = JSON.parse(this.input);
-
-      console.log('version selected in dropdown: ', this.selectedVersionName);
-      const versionIndex = this.getIndexOfVersion(this.versions, this.selectedVersionName);
-        // = this.releases.getVersionIndex(this.selectedVersionName)
-      console.log('i is ', versionIndex);
-
-      let template = this.versions[versionIndex].json; // = this.releases.getReleaseJson(versionIndex)
-      let outputJson = json;
-      outputJson.dependencies = this._processDependencies(outputJson.dependencies, template.dependencies);
-      outputJson.devDependencies = this._processDependencies(outputJson.devDependencies, template.devDependencies);
-
-      this.output = JSON.stringify(outputJson, null, 2);
-
-      // log
-      this.rollbar.info('input', null, this.input);
-      this.rollbar.info('output', null, this.output);
-      // End TODO
-
-      this.activeTab = 1; // TODO method
+    if (this._isValidJson(this.input)) {
+      this.output = this.releaseService.updatePackageJson(this.input, this.selectedVersionName);
+      this.activeTab = 1;
     } else {
-      this.showSnackbar('Input has to be valid JSON');
+      this._showSnackbar('Input has to be valid JSON');
     }
 
   }
 
-  showSnackbar(message: string): void {
+  // ######################################################## //
+
+  private _showSnackbar(message: string): void {
     this.mdlSnackbarService.showSnackbar({
       message: message,
     });
   }
 
   // TODO Util Service?
-  isValidJson(str: string): boolean {
+  private _isValidJson(str: string): boolean {
     try {
         JSON.parse(str);
     } catch (e) {
         return false;
     }
     return true;
-  }
-
-  addExampleData(): void {
-    // tslint:disable:quotemark
-    const example = {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
-  "private": true,
-  "scripts": {
-    "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
-    "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
-  },
-  "dependencies": {
-    "@angular/common": "2.4.8",
-    "@angular/compiler": "2.4.8",
-    "@angular/compiler-cli": "2.4.8",
-    "@angular/core": "2.4.8",
-    "@angular/forms": "2.4.8",
-    "@angular/http": "2.4.8",
-    "@angular/platform-browser": "2.4.8",
-    "@angular/platform-browser-dynamic": "2.4.8",
-    "@angular/platform-server": "2.4.8",
-    "@ionic-native/core": "3.1.0",
-    "@ionic-native/splash-screen": "3.1.0",
-    "@ionic-native/status-bar": "3.1.0",
-    "@ionic/cloud-angular": "^0.11.0",
-    "@ionic/storage": "2.0.0",
-    "ionic-angular": "2.3.0",
-    "ionicons": "3.0.0",
-    "rxjs": "5.0.1",
-    "sw-toolbox": "3.4.0",
-    "zone.js": "0.7.2"
-  },
-  "devDependencies": {
-    "@ionic/app-scripts": "1.1.4",
-    "@ionic/cli-plugin-ionic-angular": "1.3.0",
-    "typescript": "2.0.9"
-  },
-  "cordovaPlugins": [
-    "cordova-plugin-whitelist",
-    "cordova-plugin-console",
-    "cordova-plugin-statusbar",
-    "cordova-plugin-device",
-    "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
-  ],
-  "cordovaPlatforms": [],
-  "description": "yatsa: An Ionic project"
-};
-    this.input = JSON.stringify(example, null, 2);
   }
 
 }

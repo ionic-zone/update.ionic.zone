@@ -7,6 +7,7 @@ import { MdlModule } from '@angular-mdl/core';
 import { MdlSelectModule } from '@angular-mdl/select';
 
 import { AppComponent } from './app.component';
+import { ReleaseService } from './release.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { AppComponent } from './app.component';
       accessToken: 'fdd0ae5eaee044dfb5dfced2df20f4dd'
     })
   ],
-  providers: [],
+  providers: [ReleaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

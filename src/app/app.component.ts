@@ -15,6 +15,8 @@ export class AppComponent {
 
   activeTab = 0;
 
+  selectedVersionName = '';
+
   // TODO Service
   // tslint:disable:quotemark
   // tslint:disable-next-line:member-ordering
@@ -111,20 +113,22 @@ export class AppComponent {
       }
     }
   ];
-  version = this.versions[0].name;
-
-  constructor(private mdlSnackbarService: MdlSnackbarService, private rollbar: RollbarService) {}
-
-  public tabChanged({index}) {
-    this.activeTab = index;
-  }
-
   getIndexOfVersion(arr, k): number {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].name === k) {
         return i;
       }
     }
+  }
+
+
+
+  constructor(private mdlSnackbarService: MdlSnackbarService, private rollbar: RollbarService) {
+    this.selectedVersionName = this.versions[0].name;
+  }
+
+  public tabChanged({index}) {
+    this.activeTab = index;
   }
 
   _processDependencies(current: any, template: any): any {
@@ -146,16 +150,18 @@ export class AppComponent {
     if (this.isValidJson(this.input)) {
       // TODO Service
       const json = JSON.parse(this.input);
-      console.log('this.version is ', this.version);
 
-      const i = this.getIndexOfVersion(this.versions, this.version);
-      console.log('i is ', i);
+      console.log('version selected in dropdown: ', this.selectedVersionName);
+      const versionIndex = this.getIndexOfVersion(this.versions, this.selectedVersionName);
+        // = this.releases.getVersionIndex(this.selectedVersionName)
+      console.log('i is ', versionIndex);
 
-      let template = this.versions[i].json;
-      json.dependencies = this._processDependencies(json.dependencies, template.dependencies);
-      json.devDependencies = this._processDependencies(json.devDependencies, template.devDependencies);
+      let template = this.versions[versionIndex].json; // = this.releases.getReleaseJson(versionIndex)
+      let outputJson = json;
+      outputJson.dependencies = this._processDependencies(outputJson.dependencies, template.dependencies);
+      outputJson.devDependencies = this._processDependencies(outputJson.devDependencies, template.devDependencies);
 
-      this.output = JSON.stringify(json, null, 2);
+      this.output = JSON.stringify(outputJson, null, 2);
 
       // log
       this.rollbar.info('input', null, this.input);
@@ -171,7 +177,7 @@ export class AppComponent {
 
   showSnackbar(message: string): void {
     this.mdlSnackbarService.showSnackbar({
-      message:message,
+      message: message,
     });
   }
 

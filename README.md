@@ -37,6 +37,6 @@ Angular project built with Angular CLI.
 
 * `npm i -g angular-cli-ghpages`
 * `ng build -prod`
-* `echo "update.ionic.zone" > dist/CNAME`
+* `echo update.ionic.zone > dist/CNAME`
 * `ngh`
 * Check [update.ionic.zone](https://update.ionic.zone)

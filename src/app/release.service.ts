@@ -110,22 +110,25 @@ export class ReleaseService {
   }
 
   updatePackageJson(input, selectedVersionName): string {
+    // unchanged input
     const json = JSON.parse(input);
 
+    // get template to "apply"
     console.log('version selected in dropdown: ', selectedVersionName);
     const versionIndex = this._getVersionIndex(selectedVersionName);
     console.log('i is ', versionIndex);
-
     const template = this._getReleaseJson(versionIndex)
+
+    // apply template
     const outputJson = json;
     outputJson.dependencies = this._processDependencies(outputJson.dependencies, template.dependencies);
     outputJson.devDependencies = this._processDependencies(outputJson.devDependencies, template.devDependencies);
 
+    // create string ouput
     const output = JSON.stringify(outputJson, null, 2);
 
     // log
-    this.rollbar.info('input', null, input);
-    this.rollbar.info('output', null, output);
+    this.rollbar.info('updateButton', null, { input: input, output: output });
 
     return output;
   }

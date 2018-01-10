@@ -15,12 +15,6 @@ export class AppComponent {
 
   activeTab = 0;
 
-  constructor(private mdlSnackbarService: MdlSnackbarService, private rollbar: RollbarService) {}
-
-  public tabChanged({index}) {
-    this.activeTab = index;
-  }
-
   // TODO Service
   // tslint:disable:quotemark
   // tslint:disable-next-line:member-ordering
@@ -119,6 +113,12 @@ export class AppComponent {
   ];
   version = this.versions[0].name;
 
+  constructor(private mdlSnackbarService: MdlSnackbarService, private rollbar: RollbarService) {}
+
+  public tabChanged({index}) {
+    this.activeTab = index;
+  }
+
   getIndexOfVersion(arr, k): number {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].name === k) {
@@ -143,8 +143,7 @@ export class AppComponent {
       this.showSnackbar('Input can not be empty.');
       return;
     }
-    if (this.isValidJson(this.input))
-    {
+    if (this.isValidJson(this.input)) {
       // TODO Service
       const json = JSON.parse(this.input);
       console.log('this.version is ', this.version);
@@ -164,9 +163,7 @@ export class AppComponent {
       // End TODO
 
       this.activeTab = 1; // TODO method
-    }
-    else
-    {
+    } else {
       this.showSnackbar('Input has to be valid JSON');
     }
 

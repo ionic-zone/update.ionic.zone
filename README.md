@@ -1,22 +1,39 @@
 # update.ionic.zone
 
+[update.ionic.zone](https://update.ionic.zone) helps you upgrade your Ionic Framework project.
+
 Angular project built with Angular CLI.
 
-## Development server
+## Installation
 
-* `ng serve`, then `http://localhost:4200/`
+* `npm install -g @angular/cli`
 
-## Build
+## Development
+
+### Run development server
+
+* `ng serve`, then visit `http://localhost:4200/`
+
+### Build app
 
 * `ng build` or `ng build -prod`
-* Artifacts in `dist/` directory. 
+* Artifacts generated to `dist/` directory.
 
-## Running tests
+### Running tests
 
-* unit tests: `ng test` 
-* end-to-end tests: `ng e2e` (befor that: `ng serve`)
+* unit tests: `ng test`
+* end-to-end tests: `ng e2e` (before that: `ng serve`)
 
-## Deploy to `gh-pages` branch
+## Maintenance
+
+### Add a new Ionic release
+
+* https://github.com/ionic-team/ionic/releases
+* TODO
+
+## Deployment
+
+### Deploy to `gh-pages` branch
 
 * `npm i -g angular-cli-ghpages`
 * `ng build -prod`

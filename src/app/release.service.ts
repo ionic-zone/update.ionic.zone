@@ -717,11 +717,11 @@ export class ReleaseService {
   constructor(private rollbar: RollbarService) { }
 
   getAll(): any {
-    return this.versions;
+    return this.releases;
   }
 
   getDefaultVersionName(): string {
-    return this.versions[0].name;
+    return this.releases[0].name;
   }
 
   updatePackageJson(input, selectedVersionName): string {
@@ -730,9 +730,9 @@ export class ReleaseService {
 
     // get template to "apply"
     console.log('version selected in dropdown: ', selectedVersionName);
-    const versionIndex = this._getVersionIndex(selectedVersionName);
-    console.log('i is ', versionIndex);
-    const template = this._getReleaseJson(versionIndex)
+    const releaseIndex = this._getReleaseIndex(selectedVersionName);
+    console.log('i is ', releaseIndex);
+    const template = this._getReleaseJson(releaseIndex)
 
     // apply template
     const outputJson = json;
@@ -748,12 +748,12 @@ export class ReleaseService {
     return output;
   }
 
-  _getReleaseJson(versionIndex): any {
-    return this.versions[versionIndex].json;
+  _getReleaseJson(releaseIndex): any {
+    return this.releases[releaseIndex].json;
   }
 
-  _getVersionIndex(k): number {
-    const arr = this.versions;
+  _getReleaseIndex(k): number {
+    const arr = this.releases;
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].name === k) {
         return i;

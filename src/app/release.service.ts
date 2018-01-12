@@ -297,35 +297,6 @@ export class ReleaseService {
       }
     },
     {
-      name: 'v3.4.1',
-      date: '2017-06-16',
-      json: {
-        "dependencies": {
-          "@angular/common": "4.1.3",
-          "@angular/compiler": "4.1.3",
-          "@angular/compiler-cli": "4.1.3",
-          "@angular/core": "4.1.3",
-          "@angular/forms": "4.1.3",
-          "@angular/http": "4.1.3",
-          "@angular/platform-browser": "4.1.3",
-          "@angular/platform-browser-dynamic": "4.1.3",
-          "@ionic-native/core": "3.10.2",
-          "@ionic-native/splash-screen": "3.10.2",
-          "@ionic-native/status-bar": "3.10.2",
-          "@ionic/storage": "2.0.1",
-          "ionic-angular": "3.4.1",
-          "ionicons": "3.0.0",
-          "rxjs": "5.4.0",
-          "sw-toolbox": "3.6.0",
-          "zone.js": "0.8.12"
-        },
-        "devDependencies": {
-          "@ionic/app-scripts": "1.3.7",
-          "typescript": "2.3.3"
-        }
-      }
-    },
-    {
       name: 'v3.4.0',
       date: '2017-06-15',
       json: {

@@ -53,7 +53,7 @@
                       Update
                     </button>
                     &nbsp;to Ionic Framework&nbsp;
-                    <mdl-select id="versionSelect" [(ngModel)]="selectedVersionName" placeholder="Select version" style="margin-left:10px;">
+                    <mdl-select id="versionSelect" [(ngModel)]="selectedVersionName" placeholder="Select version">
                       <mdl-option *ngFor="let v of releases" [value]="v.name">{{v.name}} ({{v.date}})</mdl-option>
                     </mdl-select>
                   </div>

@@ -1,6 +1,12 @@
 import { ReleaseService } from './release.service';
-import { MdlSnackbarService } from '@angular-mdl/core/components';
+import { MdlSnackbarService, IMdlTableModelItem, MdlDefaultTableModel } from '@angular-mdl/core/components';
 import { Component } from '@angular/core';
+
+export interface ITableItem extends IMdlTableModelItem {
+  packageName: string;
+  old: string;
+  new: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -16,6 +22,12 @@ export class AppComponent {
   selectedVersionName = '';
   releases = {};
   changes = [];
+
+  public tableModel = new MdlDefaultTableModel([
+    {key: 'packageName', name: 'Package'},
+    {key: 'old', name: 'Old version', numeric: true},
+    {key: 'new', name: 'Updated version', numeric: true}
+  ]);
 
   constructor(private mdlSnackbarService: MdlSnackbarService, private releaseService: ReleaseService) {
     this.releases = this.releaseService.getAll();
@@ -38,6 +50,7 @@ export class AppComponent {
     if (this._isValidJson(this.input)) {
       const result = this.releaseService.updatePackageJson(this.input, this.selectedVersionName);
       this.changes = result['changes'];
+      this.tableModel.addAll(this._convertToMdlTable(this.changes));
       this.output = result['output'];
       this.activeTab = 1;
     } else {
@@ -47,6 +60,16 @@ export class AppComponent {
   }
 
   // ######################################################## //
+
+  private _convertToMdlTable(data) {
+    const results: ITableItem[] = [];
+    for(const key in data) {
+      if (data.hasOwnProperty(key)) {
+        results.push({packageName: data[key][0], old: data[key][1], new: data[key][2], selected: false});
+      }
+    }
+    return results;
+  }
 
   private _showSnackbar(message: string): void {
     this.mdlSnackbarService.showSnackbar({

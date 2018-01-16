@@ -101,15 +101,18 @@
 
                   <div>
                     <h3 class="mdl-typography--headline">Changes</h3>
-                    <table>
+
+                    <mdl-table mdl-shadow="2" [table-model]="tableModel"></mdl-table>
+
+                    <table class="mdl-data-table">
                       <thead>
-                        <td>Package</td>
-                        <td>Old</td>
-                        <td>New</td>
+                        <th class="mdl-data-table__cell--non-numeric">Package</th>
+                        <th>Old version</th>
+                        <th>Updated version</th>
                       </thead>
                       <tbody>
                         <tr *ngFor="let c of changes">
-                          <td>{{c[0]}}</td>
+                          <td class="mdl-data-table__cell--non-numeric">{{c[0]}}</td>
                           <td>{{c[1]}}</td>
                           <td>{{c[2]}}</td>
                         </tr>

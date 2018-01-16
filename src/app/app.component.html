@@ -102,22 +102,25 @@
                   <div>
                     <h3 class="mdl-typography--headline">Changes</h3>
 
-                    <mdl-table mdl-shadow="2" [table-model]="tableModel"></mdl-table>
+                    <h4 class="mdl-typography--subhead">Dependencies + DevDependencies</h4>
 
-                    <table class="mdl-data-table">
+                    <table class="mdl-data-table" style="width:100%">
                       <thead>
+                        <th class="mdl-data-table__cell--non-numeric"></th>
                         <th class="mdl-data-table__cell--non-numeric">Package</th>
                         <th>Old version</th>
                         <th>Updated version</th>
                       </thead>
                       <tbody>
                         <tr *ngFor="let c of changes">
+                          <td class="mdl-data-table__cell--non-numeric">{{c[3]}}</td>
                           <td class="mdl-data-table__cell--non-numeric">{{c[0]}}</td>
                           <td>{{c[1]}}</td>
                           <td>{{c[2]}}</td>
                         </tr>
                       </tbody>
                     </table>
+
                   </div>
 
                   <div>

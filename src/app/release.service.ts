@@ -46,6 +46,8 @@ export class ReleaseService {
   }
 
   updatePackageJson(input, selectedVersionName): any {
+    this.changes = [];
+
     // unchanged input
     const json = JSON.parse(input);
 
@@ -110,26 +112,38 @@ export class ReleaseService {
     console.log(allKeys);
 
     // prepare return value
-    const updated = current;
+    const updated = Object.assign({}, current);
 
     for (const key in allKeys) {
       if (allKeys.hasOwnProperty(key)) {
+
         const packageName = allKeys[key];
         console.log(packageName);
+
         if (current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
-          // updated dependency
           updated[packageName] = template[packageName];
-          this.changes.push([packageName, current[packageName], updated[packageName]]);
-          console.log('update: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+          if (current[packageName] === updated[packageName]) {
+            // unchanged dependency
+            this.changes.push([packageName, current[packageName], updated[packageName], '💤']);
+            console.log('unchanged: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+          } else if(current[packageName] < updated[packageName]) {
+            // updated dependency
+            this.changes.push([packageName, current[packageName], updated[packageName], '↗️']);
+            console.log('update: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+          } else {
+            // downgraded dependency
+            this.changes.push([packageName, current[packageName], updated[packageName], '💣']);
+            console.log('downgrade: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+          }
         } else if (current.hasOwnProperty(packageName) && !template.hasOwnProperty(packageName)) {
           // removed dependency
           // TODO ?
-          this.changes.push([packageName, current[packageName], '-']);
+          this.changes.push([packageName, current[packageName], '-', '⛔']);
           console.log('"removed": ' + packageName + ' ' + current[packageName]);
         } else if (!current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
           // added dependency
           updated[packageName] = template[packageName];
-          this.changes.push([packageName, '-', updated[packageName]]);
+          this.changes.push([packageName, '-', updated[packageName], '✳️']);
           console.log('added: ' + packageName + ' ' + updated[packageName]);
         }
       }

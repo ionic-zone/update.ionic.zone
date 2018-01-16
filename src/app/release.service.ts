@@ -10,52 +10,30 @@ export class ReleaseService {
 
   // tslint:disable:max-line-length quotemark
   notes = [
-    { since: '3.9.2', type: 'warning',  dep: { '@angular/core': '5.0.0' },        text: 'Update to Angular 5 might require changes to your code:', link: 'https://angular-update-guide.firebaseapp.com/' },
-    { since: '3.9.2', type: 'note',     dep: { "rxjs": "5.5.2"},                  text: 'Updated RxJS dependency includes a change in how operators are applied which might require changes to your code:', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.9.0' },
-    { since: '3.8.0', type: 'new',      dep: null,                                text: 'iOS 11 support: Add `viewport-fit` Metatag to `index.html` for iPhone X', link: 'https://blog.ionicframework.com/ios-11-checklist/' },
-    { since: '3.7.1', type: 'note',     dep: { "@ionic-native/core": "4.0.0" },   text: 'Ionic Native 4 has breaking changes for these plugin wrappers: `safari-view-controller`, `media`, `admob`, File Transfer, Google Maps.', link: 'https://github.com/ionic-team/ionic-native/releases/tag/v4.0.0' }, // TODO Target packages more specific
-    { since: '3.7.1', type: 'new',      dep: null,                                text: 'WKWebView: Shortly after releasing Ionic 3.7.1 WKWebView became the default web view for Ionic apps. Follow the instructions at the link:', link: 'https://github.com/ionic-team/cordova-plugin-ionic-webview#installation-instructions' },
-    { since: '3.7.0', type: 'new',      dep: { 'angular/core': '4.3.0'},          text: 'Angular 4.3 brings the new `HttpClient` as replacement for `Http`.', link: 'https://medium.com/codingthesmartway-com-blog/angular-4-3-httpclient-accessing-rest-web-services-with-angular-2305b8fd654b'},
-    { since: '3.7.0', type: 'note',     dep: { '@ionic/app-scripts': '3.0.0'},    text: 'App-Scripts 3.x has breaking changes if you are using a custom `webpack` config', link: 'https://github.com/ionic-team/ionic-app-scripts/releases/tag/v3.0.0' },
-    { since: '3.5.2', type: 'warning',  dep: { "@ionic/app-scripts": "2.0.0"},    text: 'App-scripts 2.x splits JS from `node_modules` into its own file, need to add `vendor.js` to `index.html`.', links: ['https://github.com/ionic-team/ionic/releases/tag/v3.5.2', 'https://github.com/ionic-team/ionic-app-scripts/releases/tag/v2.0.0'] },
-    { since: '3.7.1', type: 'note',     dep: { "@ionic-native/core": "3.12.1" },  text: 'Ionic Native 3.12.1 has surprising breaking change in `phonegap-local-notification` wrapper.', link: 'https://github.com/ionic-team/ionic-native/releases/tag/v3.12.1' },  // TODO Target packages more specific
-    { since: '3.3.0', type: 'note',     dep: null,                              	text: '`src/declarations.d.ts` is a legacy file introduced with early ionic-angular projects that can now be removed.', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.3.0' },
-    { since: '3.2.0', type: 'new',      dep: null,                                text: 'RTL support: Future-proof your code now by removing deprecated tags like `item-left` or `item-right`.', links: ['https://blog.ionicframework.com/ionic-and-rtl/', 'https://ionicframework.com/docs/theming/rtl-support/', 'https://ionicframework.com/docs/theming/rtl-support/#directional-properties']},
+    { since: '3.9.2', type: 'warning',  dep: { '@angular/core': '5.0.0' },            text: 'Update to Angular 5 might require changes to your code:', link: 'https://angular-update-guide.firebaseapp.com/' },
+    { since: '3.9.2', type: 'note',     dep: { "rxjs": "5.5.2"},                      text: 'Updated RxJS dependency includes a change in how operators are applied which might require changes to your code:', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.9.0' },
+    { since: '3.8.0', type: 'new',      dep: null,                                    text: 'iOS 11 support: Add `viewport-fit` Metatag to `index.html` for iPhone X', link: 'https://blog.ionicframework.com/ios-11-checklist/' },
+    { since: '3.7.1', type: 'note',     dep: { "@ionic-native/core": "4.0.0" },       text: 'Ionic Native 4 has breaking changes for these plugin wrappers: `safari-view-controller`, `media`, `admob`, File Transfer, Google Maps.', link: 'https://github.com/ionic-team/ionic-native/releases/tag/v4.0.0' }, // TODO Target packages more specific
+    { since: '3.7.1', type: 'new',      dep: null,                                    text: 'WKWebView: Shortly after releasing Ionic 3.7.1 WKWebView became the default web view for Ionic apps. Follow the instructions at the link:', link: 'https://github.com/ionic-team/cordova-plugin-ionic-webview#installation-instructions' },
+    { since: '3.7.0', type: 'new',      dep: { 'angular/core': '4.3.0'},              text: 'Angular 4.3 brings the new `HttpClient` as replacement for `Http`.', link: 'https://medium.com/codingthesmartway-com-blog/angular-4-3-httpclient-accessing-rest-web-services-with-angular-2305b8fd654b'},
+    { since: '3.7.0', type: 'note',     dep: { '@ionic/app-scripts': '3.0.0'},        text: 'App-Scripts 3.x has breaking changes if you are using a custom `webpack` config', link: 'https://github.com/ionic-team/ionic-app-scripts/releases/tag/v3.0.0' },
+    { since: '3.5.2', type: 'warning',  dep: { "@ionic/app-scripts": "2.0.0"},        text: 'App-scripts 2.x splits JS from `node_modules` into its own file, need to add `vendor.js` to `index.html`.', links: ['https://github.com/ionic-team/ionic/releases/tag/v3.5.2', 'https://github.com/ionic-team/ionic-app-scripts/releases/tag/v2.0.0'] },
+    { since: '3.7.1', type: 'note',     dep: { "@ionic-native/core": "3.12.1" },      text: 'Ionic Native 3.12.1 has surprising breaking change in `phonegap-local-notification` wrapper.', link: 'https://github.com/ionic-team/ionic-native/releases/tag/v3.12.1' },  // TODO Target packages more specific
+    { since: '3.3.0', type: 'note',     dep: null,                              	    text: '`src/declarations.d.ts` is a legacy file introduced with early ionic-angular projects that can now be removed.', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.3.0' },
+    { since: '3.2.0', type: 'new',      dep: null,                                    text: 'RTL support: Future-proof your code now by removing deprecated tags like `item-left` or `item-right`.', links: ['https://blog.ionicframework.com/ionic-and-rtl/', 'https://ionicframework.com/docs/theming/rtl-support/', 'https://ionicframework.com/docs/theming/rtl-support/#directional-properties']},
     // cliff with Ionic Native 3.6: https://github.com/ionic-team/ionic-native/pull/1425
-    { since: '3.0.0', type: 'note',     dep: null,                                text: 'Breaking changes to the following Ionic elements: Grid, Typography, Splides', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.0.0' },
-    { since: '3.0.0', type: 'warning',  dep: null,                                text: '`BrowserModule` + `HttpModule`: Two new module imports that have to be added to `app/app.module.ts`', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.0.0' },
-    { since: '3.0.0', type: 'new',      dep: null,                                text: '`IonicPage` Decorator added', link: 'https://ionicframework.com/docs/api/navigation/IonicPage/' },
-    { since: '3.0.0', type: 'new',      dep: null,                                text: 'Lazy Loading added', links: ['https://docs.google.com/document/d/1vGokwMXPQItZmTHZQbTO4qwj_SQymFhRS_nJmiH0K3w/edit', 'https://blog.ionicframework.com/ionic-and-lazy-loading-pt-1/', 'https://blog.ionicframework.com/ionic-and-lazy-loading-pt-2/'] },
-    { since: '3.0.0', type: 'warning',  dep: { '@angular/core': '4.0.0' },        text: 'Update to Angular 4 might require changes to your code:', link: 'https://angular-update-guide.firebaseapp.com/' },
-    { since: '2.3.0', type: 'warning',  dep: { "@ionic-native/core": "3.1.0" },   text: 'Ionic Native 3 splits the plugin wrappers into individual packages for less code to load', links: ['https://blog.ionicframework.com/ionic-native-3-x/', 'https://github.com/ionic-team/ionic-conference-app/commit/62088'] },
-    { since: '2.2.0', type: 'note',     dep: { "@ionic/storage": "2.0.0" },       text: 'Starting with Ionic 2.2.0 you **have** to use Ionic Storage 2 or higher. (If you use the generated `package.json` this is taken care of)', links: [ 'https://github.com/ionic-team/ionic-storage/releases/tag/v2.0.0', 'https://github.com/ionic-team/ionic/releases/tag/v2.2.0' ] }
+    { since: '3.0.0', type: 'note',     dep: null,                                    text: 'Breaking changes to the following Ionic elements: Grid, Typography, Splides', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.0.0' },
+    { since: '3.0.0', type: 'warning',  dep: null,                                    text: '`BrowserModule` + `HttpModule`: Two new module imports that have to be added to `app/app.module.ts`', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.0.0' },
+    { since: '3.0.0', type: 'new',      dep: null,                                    text: '`IonicPage` Decorator added', link: 'https://ionicframework.com/docs/api/navigation/IonicPage/' },
+    { since: '3.0.0', type: 'new',      dep: null,                                    text: 'Lazy Loading added', links: ['https://docs.google.com/document/d/1vGokwMXPQItZmTHZQbTO4qwj_SQymFhRS_nJmiH0K3w/edit', 'https://blog.ionicframework.com/ionic-and-lazy-loading-pt-1/', 'https://blog.ionicframework.com/ionic-and-lazy-loading-pt-2/'] },
+    { sinve: '3.0.0', type: 'note',     dep: { "@angular/platform-server": "2.4.8" }, text: 'Angular 4 changed what `@angular/platform-server` does. It is not needed any more and can be safely removed.', link: 'https://stackoverflow.com/a/42885233/252627' },
+    { since: '3.0.0', type: 'warning',  dep: { '@angular/core': '4.0.0' },            text: 'Update to Angular 4 might require changes to your code:', link: 'https://angular-update-guide.firebaseapp.com/' },
+    { since: '2.3.0', type: 'warning',  dep: { "@ionic-native/core": "3.1.0" },       text: 'Ionic Native 3 splits the plugin wrappers into individual packages for less code to load', links: ['https://blog.ionicframework.com/ionic-native-3-x/', 'https://github.com/ionic-team/ionic-conference-app/commit/62088'] },
+    { since: '2.2.0', type: 'note',     dep: { "@ionic/storage": "2.0.0" },           text: 'Starting with Ionic 2.2.0 you **have** to use Ionic Storage 2 or higher. (If you use the generated `package.json` this is taken care of)', links: [ 'https://github.com/ionic-team/ionic-storage/releases/tag/v2.0.0', 'https://github.com/ionic-team/ionic/releases/tag/v2.2.0' ] }
   ];
   // tslint:enable:max-line-length quotemark
 
-/*
-
-Ionic Native:
-       Ionic Native ionic-native has been restructured into individual packages under the
-       @ionic-native/ namespace to allow for better bundling and faster apps. To fix, take the
-       following step(s):
-
-            1) Run npm uninstall --save ionic-native
-            2) Refer to https://ionicframework.com/docs/native for installation & usage
-       instructions
-
-viewport-fit TODO
-      [WARN] viewport-fit=cover not set in index.html
-
-       iOS 11 introduces new "safe regions" for webviews, which can throw off component sizing,
-       squish the header into the status bar, letterbox the app on iPhone X, etc. Fixing this issue
-
-       will ensure the webview takes up the full size of the screen. See
-       https://blog.ionicframework.com/ios-11-checklist for more information. To fix, take the
-       following step(s):
-
-            1) Add viewport-fit=cover to the <meta name="viewport"> tag in your index.html file
-
-*/
+  changes = [];
 
   constructor(private rollbar: RollbarService) { }
 
@@ -67,7 +45,7 @@ viewport-fit TODO
     return this.releases[0].name;
   }
 
-  updatePackageJson(input, selectedVersionName): string {
+  updatePackageJson(input, selectedVersionName): any {
     // unchanged input
     const json = JSON.parse(input);
 
@@ -82,13 +60,18 @@ viewport-fit TODO
     outputJson.dependencies = this._processDependencies(outputJson.dependencies, template.dependencies);
     outputJson.devDependencies = this._processDependencies(outputJson.devDependencies, template.devDependencies);
 
+    //const changes = [ ['foo', 0, 8], ['bar', 15, 27] ];
+    const changes = this.changes;
+
     // create string ouput
     const output = JSON.stringify(outputJson, null, 2);
 
     // log
     this.rollbar.info('updateButton', null, { input: input, output: output });
 
-    return output;
+    const result = { output: output, changes: changes };
+
+    return result;
   }
 
   _getReleaseJson(releaseIndex): any {
@@ -104,14 +87,55 @@ viewport-fit TODO
     }
   }
 
-  _processDependencies(current: any, template: any): any {
-    const updated = current;
-    for (const key in template) {
-        if (template.hasOwnProperty(key)) { // tslint for-in
-          console.log(key + ': ' + updated[key] + ' -> ' + template[key]);
-          updated[key] = template[key];
+  // source: https://stackoverflow.com/a/1584377/252627
+  _arrayUnique(array) {
+    const a = array.concat();
+    for (let i = 0; i < a.length; ++i) {
+      for (let j = i + 1; j < a.length; ++j) {
+        if (a[i] === a[j]) {
+          a.splice(j--, 1);
         }
       }
+    }
+
+    return a;
+  }
+
+  _processDependencies(current: any, template: any): any {
+    // get all keys
+    const currentKeys = Object.keys(current);
+    const templateKeys = Object.keys(template);
+    let allKeys = currentKeys.concat(templateKeys);
+    allKeys = this._arrayUnique(allKeys);
+    console.log(allKeys);
+
+    // prepare return value
+    const updated = current;
+
+    for (const key in allKeys) {
+      if (allKeys.hasOwnProperty(key)) {
+        const packageName = allKeys[key];
+        console.log(packageName);
+        if (current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
+          // updated dependency
+          updated[packageName] = template[packageName];
+          this.changes.push([packageName, current[packageName], updated[packageName]]);
+          console.log('update: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+        } else if (current.hasOwnProperty(packageName) && !template.hasOwnProperty(packageName)) {
+          // removed dependency
+          // TODO ?
+          this.changes.push([packageName, current[packageName], '-']);
+          console.log('"removed": ' + packageName + ' ' + current[packageName]);
+        } else if (!current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
+          // added dependency
+          updated[packageName] = template[packageName];
+          this.changes.push([packageName, '-', updated[packageName]]);
+          console.log('added: ' + packageName + ' ' + updated[packageName]);
+        }
+      }
+    }
+
+
     return updated;
   }
 

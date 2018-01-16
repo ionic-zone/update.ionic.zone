@@ -100,6 +100,28 @@
                   </mdl-textfield>
 
                   <div>
+                    <h3 class="mdl-typography--headline">Changes</h3>
+                    <table>
+                      <thead>
+                        <td>Package</td>
+                        <td>Old</td>
+                        <td>New</td>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let c of changes">
+                          <td>{{c[0]}}</td>
+                          <td>{{c[1]}}</td>
+                          <td>{{c[2]}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div>
+                    <h3 class="mdl-typography--headline">Notes</h3>
+                  </div>
+
+                  <div>
 
                     <h3 class="mdl-typography--headline">How to use this?</h3>
                     <p>Copy the result back into your <code>package.json</code> file and run <code>npm install</code> to install the changed dependencies.</p>

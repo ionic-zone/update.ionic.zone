@@ -125,6 +125,16 @@
 
                   <div>
                     <h3 class="mdl-typography--headline">Notes</h3>
+
+                    <div *ngFor="let n of notes">
+                      <h4 class="mdl-typography--subhead">{{n['version']}}</h4>
+                      <ul>
+                        <li *ngFor="let d of n['data']">
+                          {{d['emoji']}} {{d['text']}}
+                        </li>
+                      </ul>
+                    </div>
+
                   </div>
 
                   <div>

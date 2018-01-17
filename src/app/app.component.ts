@@ -16,6 +16,7 @@ export class AppComponent {
   selectedVersionName = '';
   releases = {};
   changes = [];
+  notes = [];
 
   constructor(private mdlSnackbarService: MdlSnackbarService, private releaseService: ReleaseService) {
     this.releases = this.releaseService.getAll();
@@ -37,8 +38,9 @@ export class AppComponent {
     }
     if (this._isValidJson(this.input)) {
       const result = this.releaseService.updatePackageJson(this.input, this.selectedVersionName);
-      this.changes = result['changes'];
       this.output = result['output'];
+      this.changes = result['changes'];
+      this.notes = result['notes'];
       this.activeTab = 1;
     } else {
       this._showSnackbar('Input has to be valid JSON');

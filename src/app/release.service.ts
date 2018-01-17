@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RollbarService } from 'angular-rollbar';
 import { RELEASES } from './releases';
 import { NOTES } from './notes';
+import { SemVer } from 'semver';
 
 @Injectable()
 export class ReleaseService {
@@ -25,7 +26,7 @@ export class ReleaseService {
     this.changes = [];
 
     // unchanged input
-    const json = JSON.parse(input);
+    const inputJson = JSON.parse(input);
 
     // get template to "apply"
     console.log('version selected in dropdown: ', selectedVersionName);
@@ -34,20 +35,24 @@ export class ReleaseService {
     const template = this._getReleaseJson(releaseIndex)
 
     // apply template
-    const outputJson = json;
-    outputJson.dependencies = this._processDependencies(outputJson.dependencies, template.dependencies);
-    outputJson.devDependencies = this._processDependencies(outputJson.devDependencies, template.devDependencies);
+    const outputJson = Object.assign({}, inputJson);
+    outputJson.dependencies = this._processDependencies(inputJson.dependencies, template.dependencies);
+    outputJson.devDependencies = this._processDependencies(inputJson.devDependencies, template.devDependencies);
 
     // get changes from property - ugly but works
     const changes = this.changes;
 
-    // get notes
-    const notes = this.notes;
-    notes.forEach(release => {
+    // versions we are working with
+    const currentVersion = inputJson.dependencies['ionic-angular'];
+    const updatedVersion = outputJson.dependencies['ionic-angular'];
+
+    // notes
+    console.log('currentVersion = ', currentVersion, 'updateVersion = ', updatedVersion);
+    const notes = [];
+    this.notes.forEach(release => {
       for (const key in release['data']) {
         if (release['data'].hasOwnProperty(key)) {
           const note = release['data'][key];
-          console.log('note', note);
           note['dep2'] = JSON.stringify(note['dep'], null, 2);
           note['links2'] = JSON.stringify(note['links'], null, 2);
           switch (note['type']) {
@@ -63,8 +68,12 @@ export class ReleaseService {
             default:
               break;
           }
-          console.log('note', note);
         }
+      }
+      console.log('note-version > currentVersion?', SemVer.gt(release['version'], currentVersion), release['version'], currentVersion);
+      console.log('note-version > updatedVersion? ', SemVer.gt(release['version'], updatedVersion), release['version'], updatedVersion);
+      if (SemVer.gt(release['version'], currentVersion) && !SemVer.gt(release['version'], updatedVersion)) {
+        notes.push(release);
       }
     });
     console.log('notes:', notes);
@@ -76,6 +85,12 @@ export class ReleaseService {
     this.rollbar.info('updateButton', null, { input: input, output: output, notes: notes });
 
     return { output: output, changes: changes, notes: notes };
+  }
+
+  _compareSemver(ver1, ver2) {
+    ver1 = ver1.split('.').map( s => s.padStart(10) ).join('.');
+    ver2 = ver2.split('.').map( s => s.padStart(10) ).join('.');
+    return ver1 <= ver2;
   }
 
   _getReleaseJson(releaseIndex): any {

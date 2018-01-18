@@ -16,7 +16,9 @@ export class AppComponent {
   selectedVersionName = '';
   releases = {};
   changes = [];
+  devChanges = [];
   notes = [];
+  versions = {};
 
   constructor(private mdlSnackbarService: MdlSnackbarService, private releaseService: ReleaseService) {
     this.releases = this.releaseService.getAll();
@@ -31,6 +33,10 @@ export class AppComponent {
     this.input = this.releaseService.getExample();
   }
 
+  public addExampleData2(): void {
+    this.input = this.releaseService.getExample2();
+  }
+
   public processInput(): void {
     if (this.input.length === 0) {
       this._showSnackbar('Input can not be empty.');
@@ -38,9 +44,12 @@ export class AppComponent {
     }
     if (this._isValidJson(this.input)) {
       const result = this.releaseService.updatePackageJson(this.input, this.selectedVersionName);
+      console.log('result', result);
       this.output = result['output'];
       this.changes = result['changes'];
+      this.devChanges = result['devChanges'];
       this.notes = result['notes'];
+      this.versions = result['versions'];
       this.activeTab = 1;
     } else {
       this._showSnackbar('Input has to be valid JSON');

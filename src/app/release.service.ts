@@ -34,13 +34,16 @@ export class ReleaseService {
     console.log('i is ', releaseIndex);
     const template = this._getReleaseJson(releaseIndex)
 
-    // apply template
+    // apply template to dependencies
     const outputJson = Object.assign({}, inputJson);
     outputJson.dependencies = this._processDependencies(inputJson.dependencies, template.dependencies);
-    outputJson.devDependencies = this._processDependencies(inputJson.devDependencies, template.devDependencies);
-
     // get changes from property - ugly but works
     const changes = this.changes;
+    this.changes = []; // reset for devDeps
+    // apply template to devDependencies
+    outputJson.devDependencies = this._processDependencies(inputJson.devDependencies, template.devDependencies);
+    // get changes from property - ugly but works
+    const devChanges = this.changes;
 
     // versions we are working with
     const currentVersion = inputJson.dependencies['ionic-angular'];
@@ -84,7 +87,7 @@ export class ReleaseService {
     // log
     this.rollbar.info('updateButton', null, { input: input, output: output, notes: notes });
 
-    return { output: output, changes: changes, notes: notes };
+    return { output: output, changes: changes, devChanges: devChanges, notes: notes, versions: { currentVersion, updatedVersion } };
   }
 
   _compareSemver(ver1, ver2) {
@@ -222,4 +225,56 @@ export class ReleaseService {
 };
     return JSON.stringify(example, null, 2);
   }
+
+
+  public getExample2(): string {
+    // tslint:disable:quotemark
+    const example = {
+    "name": "ionic-hello-world",
+    "author": "Ionic Framework",
+    "homepage": "http://ionicframework.com/",
+    "private": true,
+    "scripts": {
+      "clean": "ionic-app-scripts clean",
+      "build": "ionic-app-scripts build",
+      "ionic:build": "ionic-app-scripts build",
+      "ionic:serve": "ionic-app-scripts serve"
+    },
+    "dependencies": {
+      "@angular/common": "2.2.1",
+      "@angular/compiler": "2.2.1",
+      "@angular/compiler-cli": "2.2.1",
+      "@angular/core": "2.2.1",
+      "@angular/forms": "2.2.1",
+      "@angular/http": "2.2.1",
+      "@angular/platform-browser": "2.2.1",
+      "@angular/platform-browser-dynamic": "2.2.1",
+      "@angular/platform-server": "2.2.1",
+      "@ionic/storage": "1.1.7",
+      "ionic-angular": "2.0.0",
+      "ionic-native": "2.4.1",
+      "ionicons": "3.0.0",
+      "rxjs": "5.0.0-beta.12",
+      "zone.js": "0.6.26",
+      "sw-toolbox": "3.4.0"
+    },
+    "devDependencies": {
+      "@ionic/app-scripts": "1.0.0",
+      "typescript": "2.0.9"
+    },
+    "cordovaPlugins": [
+      "cordova-plugin-whitelist",
+      "cordova-plugin-console",
+      "cordova-plugin-statusbar",
+      "cordova-plugin-device",
+      "cordova-plugin-splashscreen",
+      "ionic-plugin-keyboard"
+    ],
+    "cordovaPlatforms": [],
+    "description": "yatsa: An Ionic project"
+    };
+    return JSON.stringify(example, null, 2);
+  }
+
+
 }

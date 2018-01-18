@@ -19,6 +19,7 @@ export class AppComponent {
   devChanges = [];
   notes = [];
   versions = {};
+  inputVersion = '';
 
   constructor(private mdlSnackbarService: MdlSnackbarService, private releaseService: ReleaseService) {
     this.releases = this.releaseService.getAll();
@@ -31,10 +32,12 @@ export class AppComponent {
 
   public addExampleData(): void {
     this.input = this.releaseService.getExample();
+    this.onTextfieldChange('example1');
   }
 
   public addExampleData2(): void {
     this.input = this.releaseService.getExample2();
+    this.onTextfieldChange('example2');
   }
 
   public processInput(): void {
@@ -54,6 +57,15 @@ export class AppComponent {
     } else {
       this._showSnackbar('Input has to be valid JSON');
     }
+
+  }
+
+  public onTextfieldChange(event): void {
+    console.log('onTextfieldChange', event);
+
+    const inputJson = JSON.parse(this.input);
+    const currentVersion = inputJson.dependencies['ionic-angular'];
+    this.inputVersion = 'v' + currentVersion;
 
   }
 

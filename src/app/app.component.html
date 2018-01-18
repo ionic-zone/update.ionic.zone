@@ -35,7 +35,11 @@
                       rows="15"
                       label="Paste your current `package.json` here" floating-label
                       required
-                      [(ngModel)]="input">
+                      [(ngModel)]="input"
+                      (blur)="onTextfieldChange($event)"
+                      (focus)="onTextfieldChange($event)"
+                      (keyup)="onTextfieldChange($event)"
+                      >
                     </mdl-textfield>
 
                     <button
@@ -64,6 +68,7 @@
                     <mdl-select id="versionSelect" [(ngModel)]="selectedVersionName" placeholder="Select version">
                       <mdl-option *ngFor="let v of releases" [value]="v.name">{{v.name}} ({{v.date}})</mdl-option>
                     </mdl-select>
+                    <span *ngIf="inputVersion != ''">&nbsp;from {{inputVersion}}</span>
                   </div>
 
                   <div>

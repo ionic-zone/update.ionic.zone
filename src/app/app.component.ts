@@ -62,11 +62,7 @@ export class AppComponent {
 
   public onTextfieldChange(event): void {
     console.log('onTextfieldChange', event);
-
-    const inputJson = JSON.parse(this.input);
-    const currentVersion = inputJson.dependencies['ionic-angular'];
-    this.inputVersion = 'v' + currentVersion;
-
+    this.inputVersion = this.releaseService.getInputVersion(this.input);
   }
 
   // ######################################################## //

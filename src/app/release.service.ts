@@ -22,6 +22,21 @@ export class ReleaseService {
     return this.releases[0].name;
   }
 
+  getInputVersion(input): string {
+    try {
+      const inputJson = JSON.parse(input);
+      const currentVersion = inputJson.dependencies['ionic-angular'];
+      console.log('getInputVersion currentVersion', currentVersion)
+      if (currentVersion) {
+        return 'v' + SemVer.coerce(currentVersion);
+      } else {
+        return '';
+      }
+    } catch (error) {
+      return '';
+    }
+  }
+
   updatePackageJson(input, selectedVersionName): any {
     this.changes = [];
 
@@ -46,7 +61,7 @@ export class ReleaseService {
     const devChanges = this.changes;
 
     // versions we are working with
-    const currentVersion = inputJson.dependencies['ionic-angular'];
+    const currentVersion = SemVer.coerce(inputJson.dependencies['ionic-angular']).raw;
     const updatedVersion = outputJson.dependencies['ionic-angular'];
 
     // notes
@@ -142,11 +157,11 @@ export class ReleaseService {
 
         if (current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
           updated[packageName] = template[packageName];
-          if (current[packageName] === updated[packageName]) {
+          if (SemVer.coerce(current[packageName]).raw === updated[packageName]) {
             // unchanged dependency
             this.changes.push([packageName, current[packageName], updated[packageName], '💤']);
             console.log('unchanged: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
-          } else if(current[packageName] < updated[packageName]) {
+          } else if(SemVer.coerce(current[packageName]).raw < updated[packageName]) {
             // updated dependency
             this.changes.push([packageName, current[packageName], updated[packageName], '↗️']);
             console.log('update: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);

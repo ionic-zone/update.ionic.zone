@@ -9,6 +9,10 @@ export class ReleaseService {
 
   releases = RELEASES;
   notes = NOTES;
+  siblings = {
+    '@ionic-native/core': '@ionic-native/',
+    '@angular/core': '@angular/'
+  };
 
   changes = [];
 
@@ -44,20 +48,18 @@ export class ReleaseService {
     const inputJson = JSON.parse(input);
 
     // get template to "apply"
-    console.log('version selected in dropdown: ', selectedVersionName);
     const releaseIndex = this._getReleaseIndex(selectedVersionName);
-    console.log('i is ', releaseIndex);
-    const template = this._getReleaseJson(releaseIndex)
+    const template = this._getReleaseJson(releaseIndex);
 
     // apply template to dependencies
     const outputJson = Object.assign({}, inputJson);
     outputJson.dependencies = this._processDependencies(inputJson.dependencies, template.dependencies);
-    // get changes from property - ugly but works
+    // get changes from property (instead of method return) - ugly but works
     const changes = this.changes;
     this.changes = []; // reset for devDeps
     // apply template to devDependencies
     outputJson.devDependencies = this._processDependencies(inputJson.devDependencies, template.devDependencies);
-    // get changes from property - ugly but works
+    // get changes from property (instead of method return) - ugly but works
     const devChanges = this.changes;
 
     // versions we are working with
@@ -153,8 +155,8 @@ export class ReleaseService {
       if (allKeys.hasOwnProperty(key)) {
 
         const packageName = allKeys[key];
-        console.log(packageName);
 
+        // template replacements
         if (current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
           updated[packageName] = template[packageName];
           if (SemVer.coerce(current[packageName]).raw === updated[packageName]) {
@@ -180,6 +182,27 @@ export class ReleaseService {
           updated[packageName] = template[packageName];
           this.changes.push([packageName, '-', updated[packageName], '✳️']);
           console.log('added: ' + packageName + ' ' + updated[packageName]);
+        } else {
+          console.error('no idea what to do with ' + packageName);
+        }
+      }
+    }
+
+    // sibling replacements
+    for (const key in this.siblings) {
+      if (this.siblings.hasOwnProperty(key)) {
+        const packageName = key;
+        const pattern = this.siblings[key];
+        for (const updatedPackageName in updated) {
+          if (updated.hasOwnProperty(updatedPackageName)) {
+            const targetVersion = updated[packageName];
+            if (updatedPackageName.startsWith(pattern) && targetVersion != updated[updatedPackageName]) {
+              // tslint:disable-next-line:max-line-length
+              console.log('sibling for ' + packageName + ' (' + pattern + '): ' + updatedPackageName + ' ' + updated[updatedPackageName] + ' -> ' + targetVersion);
+              // TODO actually remove
+              // TODO add note (somehow)
+            }
+          }
         }
       }
     }

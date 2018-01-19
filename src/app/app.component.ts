@@ -31,13 +31,15 @@ export class AppComponent {
   }
 
   public addExampleData(): void {
-    this.input = this.releaseService.getExample();
-    this.onTextfieldChange('example1');
+    this.input = JSON.stringify(this.releaseService.getExample(), null, 2);
   }
 
   public addExampleData2(): void {
-    this.input = this.releaseService.getExample2();
-    this.onTextfieldChange('example2');
+    this.input = JSON.stringify(this.releaseService.getExample2(), null, 2);
+  }
+
+  public addExampleData3(): void {
+    this.input = JSON.stringify(this.releaseService.getExample3(), null, 2);
   }
 
   public processInput(): void {

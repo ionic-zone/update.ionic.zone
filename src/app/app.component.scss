@@ -39,6 +39,10 @@ mdl-icon {
   vertical-align: top;
 }
 
+:host /deep/ .mdl-data-table td p {
+  margin-bottom:0;
+}
+
 // Layout
 
 /* Header */

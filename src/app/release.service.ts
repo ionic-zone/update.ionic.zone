@@ -12,6 +12,8 @@ export class ReleaseService {
   siblings = {
     '@ionic-native/core': '@ionic-native/',
     '@angular/core': '@angular/'
+    // TODO Special case for @angular/cli: Explicitly list which packages to update
+    // e.g. `@angular/(animations|router|...)` and use regex instead of .startWith()
   };
 
   changes = [];
@@ -66,7 +68,7 @@ export class ReleaseService {
     const currentVersion = SemVer.coerce(inputJson.dependencies['ionic-angular']).raw;
     const updatedVersion = outputJson.dependencies['ionic-angular'];
 
-    // notes
+    // generate "static" notes (that only depend on start and target version)
     console.log('currentVersion = ', currentVersion, 'updateVersion = ', updatedVersion);
     const notes = [];
     this.notes.forEach(release => {
@@ -90,8 +92,8 @@ export class ReleaseService {
           }
         }
       }
-      console.log('note-version > currentVersion?', SemVer.gt(release['version'], currentVersion), release['version'], currentVersion);
-      console.log('note-version > updatedVersion? ', SemVer.gt(release['version'], updatedVersion), release['version'], updatedVersion);
+      // console.log('note-version > currentVersion?', SemVer.gt(release['version'], currentVersion), release['version'], currentVersion);
+      // console.log('note-version > updatedVersion? ', SemVer.gt(release['version'], updatedVersion), release['version'], updatedVersion);
       if (SemVer.gt(release['version'], currentVersion) && !SemVer.gt(release['version'], updatedVersion)) {
         notes.push(release);
       }
@@ -141,50 +143,50 @@ export class ReleaseService {
   }
 
   _processDependencies(current: any, template: any): any {
-    // get all keys
+    // get all keys by combining current and template
     const currentKeys = Object.keys(current);
     const templateKeys = Object.keys(template);
     let allKeys = currentKeys.concat(templateKeys);
     allKeys = this._arrayUnique(allKeys);
-    console.log(allKeys);
+    console.log('allkeys', allKeys);
 
-    // prepare return value
+    // prefill return value with current state
     const updated = Object.assign({}, current);
 
     for (const key in allKeys) {
       if (allKeys.hasOwnProperty(key)) {
-
+        let _type = '';
+        let _emoji = '';
         const packageName = allKeys[key];
-
         // template replacements
         if (current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
           updated[packageName] = template[packageName];
           if (SemVer.coerce(current[packageName]).raw === updated[packageName]) {
             // unchanged dependency
-            this.changes.push([packageName, current[packageName], updated[packageName], '💤']);
-            console.log('unchanged: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
-          } else if(SemVer.coerce(current[packageName]).raw < updated[packageName]) {
+            _type = 'unchanged';
+            _emoji = '💤';
+          } else if (SemVer.coerce(current[packageName]).raw < updated[packageName]) {
             // updated dependency
-            this.changes.push([packageName, current[packageName], updated[packageName], '↗️']);
-            console.log('update: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+            _type = 'update';
+            _emoji = '↗️';
           } else {
             // downgraded dependency
-            this.changes.push([packageName, current[packageName], updated[packageName], '💣']);
-            console.log('downgrade: ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+            _type = 'downgrade';
+            _emoji = '💣';
           }
         } else if (current.hasOwnProperty(packageName) && !template.hasOwnProperty(packageName)) {
-          // removed dependency
-          // TODO ?
-          this.changes.push([packageName, current[packageName], '-', '⛔']);
-          console.log('"removed": ' + packageName + ' ' + current[packageName]);
+          // "undefined" dependency (no instructions what to do with that package in template)
+          _type = 'undefined';
+          _emoji = '❔';
         } else if (!current.hasOwnProperty(packageName) && template.hasOwnProperty(packageName)) {
-          // added dependency
           updated[packageName] = template[packageName];
-          this.changes.push([packageName, '-', updated[packageName], '✳️']);
-          console.log('added: ' + packageName + ' ' + updated[packageName]);
+          // added new dependency
+          _type = 'added new';
+          _emoji = '✳️';
         } else {
           console.error('no idea what to do with ' + packageName);
         }
+        this._addChange(_type, _emoji, packageName, current, updated);
       }
     }
 
@@ -196,11 +198,12 @@ export class ReleaseService {
         for (const updatedPackageName in updated) {
           if (updated.hasOwnProperty(updatedPackageName)) {
             const targetVersion = updated[packageName];
-            if (updatedPackageName.startsWith(pattern) && targetVersion != updated[updatedPackageName]) {
+            if (updatedPackageName.startsWith(pattern) && targetVersion !== updated[updatedPackageName]) {
               // tslint:disable-next-line:max-line-length
               console.log('sibling for ' + packageName + ' (' + pattern + '): ' + updatedPackageName + ' ' + updated[updatedPackageName] + ' -> ' + targetVersion);
-              // TODO actually remove
+              updated[updatedPackageName] = targetVersion;
               // TODO add note (somehow)
+              this._updateChange(updatedPackageName, targetVersion);
             }
           }
         }
@@ -209,6 +212,21 @@ export class ReleaseService {
 
 
     return updated;
+  }
+
+  _addChange(label, emoji, packageName, current, updated): void {
+    this.changes.push([packageName, current[packageName], updated[packageName], emoji]);
+    // this.changes[packageName] = [packageName, current[packageName], updated[packageName], emoji];
+    console.log(label + ': ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
+  }
+
+  _updateChange(packageName, version): void {
+    this.changes.forEach(change => {
+      if (change[0] === packageName) {
+        change[2] = version;
+        change[3] = '💯';
+      }
+    });
   }
 
   public getExample(): {} {

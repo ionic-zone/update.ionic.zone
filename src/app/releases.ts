@@ -12,7 +12,7 @@ export interface Release {
 // tslint:disable:quotemark
 export const RELEASES: Release[] = [
   {
-    name: 'v3.9.2 + updated dependencies',
+    name: 'current (v3.9.2 + updated dependencies)',
     date: '2018-01-19',
     json: {
       "dependencies": {

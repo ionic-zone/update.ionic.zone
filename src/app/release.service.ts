@@ -15,6 +15,14 @@ export class ReleaseService {
     // TODO Special case for @angular/cli: Explicitly list which packages to update
     // e.g. `@angular/(animations|router|...)` and use regex instead of .startWith()
   };
+  remove = [
+    // TODO Text and link
+    '@angular/platform-server',
+    '@ionic/cli-plugin-cordova',
+    '@ionic/cli-plugin-ionic-angular',
+    '@ionic/cli-plugin-ionic1',
+    '@ionic/cli-plugin-gulp'
+  ];
 
   changes = [];
 
@@ -203,15 +211,39 @@ export class ReleaseService {
               console.log('sibling for ' + packageName + ' (' + pattern + '): ' + updatedPackageName + ' ' + updated[updatedPackageName] + ' -> ' + targetVersion);
               updated[updatedPackageName] = targetVersion;
               // TODO add note (somehow)
-              this._updateChange(updatedPackageName, targetVersion);
+              this._updateChange(updatedPackageName, targetVersion, '💯');
             }
           }
         }
       }
     }
 
+    // remove unneeded packages
+    this.remove.forEach(packageNameToRemove => {
+      for (const updatedPackageName in updated) {
+        if (updated.hasOwnProperty(updatedPackageName)) {
+          if (updatedPackageName === packageNameToRemove) {
+            this._removePackage(packageNameToRemove, updated);
+          }
+        }
+      }
+    });
+
+    // special, hardcoded cases:
+    // 1. remove `ionic-native` if `@ionic-native/core` is present
+    if (updated['@ionic-native/core']) {
+      this._removePackage('ionic-native', updated);
+    }
 
     return updated;
+  }
+
+
+  _removePackage(packageName, dependencies) {
+    console.log('remove ' + packageName);
+    delete dependencies[packageName];
+    // TODO add note (somehow)
+    this._updateChange(packageName, null, '⛔');
   }
 
   _addChange(label, emoji, packageName, current, updated): void {
@@ -220,11 +252,11 @@ export class ReleaseService {
     console.log(label + ': ' + packageName + ' ' + current[packageName] + ' -> ' + updated[packageName]);
   }
 
-  _updateChange(packageName, version): void {
+  _updateChange(packageName, version, emoji): void {
     this.changes.forEach(change => {
       if (change[0] === packageName) {
         change[2] = version;
-        change[3] = '💯';
+        change[3] = emoji;
       }
     });
   }

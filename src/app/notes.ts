@@ -9,14 +9,14 @@ export const NOTES = [
   {
     version: '2.3.0',
     data: [
-      { type: 'warning',  dep: { "@ionic-native/core": "3.1.0" },       text: 'Ionic Native 3 splits the plugin wrappers into individual packages for less code to load. Static classes (e.g. `InAppBrowser`) have been replaced by dependency injected properties (`public inAppBrowser: InAppBrowser` + `this.inAppBrowser`).', link: 'https://blog.ionicframework.com/ionic-native-3-x/' },
+      { type: 'warning',  dep: { "@ionic-native/core": "3.1.0" },       text: 'Ionic Native 3 splits the plugin wrappers into individual packages for less code to load. You have to add the additional imports for the "wrappers" you use manually.<br> Also static classes (e.g. `InAppBrowser`) have been replaced by dependency injected properties (`public inAppBrowser: InAppBrowser` + `this.inAppBrowser`).', link: 'https://blog.ionicframework.com/ionic-native-3-x/' }, // TODO required change
     ]
   },
   {
     version: '3.0.0',
     data: [
       { type: 'warning',  dep: { '@angular/core': '4.0.0' },            text: 'Update to **Angular 4** might require changes to your code.', link: 'https://angular-update-guide.firebaseapp.com/' },
-      { type: 'warning',  dep: null,                                    text: '`BrowserModule` + `HttpModule`: Two new module imports that have to be added to `app/app.module.ts`.', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.0.0' },
+      { type: 'warning',  dep: null,                                    text: '`BrowserModule` + `HttpModule`: Two new module imports that have to be added to `app/app.module.ts`.', link: 'https://github.com/ionic-team/ionic/releases/tag/v3.0.0' }, // TODO required change
       { type: 'new',      dep: null,                                    text: '`IonicPage` Decorator added', link: 'https://ionicframework.com/docs/api/navigation/IonicPage/' },
       { type: 'new',      dep: null,                                    text: 'Lazy Loading added', link: 'https://blog.ionicframework.com/ionic-and-lazy-loading-pt-1/' },
       { type: 'note',     dep: { "@angular/platform-server": "2.4.8" }, text: 'Angular 4 changed what `@angular/platform-server` does. It is not needed any more and can be safely removed.', link: 'https://stackoverflow.com/a/42885233/252627' },
@@ -44,7 +44,7 @@ export const NOTES = [
   {
     version: '3.5.2',
     data: [
-      { type: 'warning',  dep: { "@ionic/app-scripts": "2.0.0"},        text: 'App-scripts 2.x splits JS from `node_modules` into its own file, need to add `vendor.js` to `index.html`.', link: 'https://github.com/ionic-team/ionic-app-scripts/releases/tag/v2.0.0' },
+      { type: 'warning',  dep: { "@ionic/app-scripts": "2.0.0"},        text: 'App-scripts 2.x splits JS from `node_modules` into its own file, need to add `vendor.js` to `index.html`.', link: 'https://github.com/ionic-team/ionic-app-scripts/releases/tag/v2.0.0' }, // TODO required change
       { type: 'note',     dep: { '@ionic/app-scripts': '2.0.0'},        text: 'App-Scripts 2.x has breaking changes if you are using a custom `webpack` config.', link: 'https://github.com/ionic-team/ionic-app-scripts/releases/tag/v2.0.0' },
 
     ]
@@ -66,7 +66,7 @@ export const NOTES = [
   {
     version: '3.8.0',
     data: [
-      { type: 'new',      dep: null,                                    text: 'iOS 11: Add `viewport-fit` Metatag to `index.html` for iPhone X support.', link: 'https://blog.ionicframework.com/ios-11-checklist/' },
+      { type: 'new',      dep: null,                                    text: 'iOS 11: Add `viewport-fit` Metatag to `index.html` for iPhone X support.', link: 'https://blog.ionicframework.com/ios-11-checklist/' }, // TODO required change
     ]
   },
   {

@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class Update.Ionic.ZonePage {
+export class AppPage {
   navigateTo() {
     return browser.get('/');
   }

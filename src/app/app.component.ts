@@ -32,14 +32,17 @@ export class AppComponent {
 
   public addExampleData(): void {
     this.input = JSON.stringify(this.releaseService.getExample(), null, 2);
+    this.onTextfieldChange('example1');
   }
 
   public addExampleData2(): void {
     this.input = JSON.stringify(this.releaseService.getExample2(), null, 2);
+    this.onTextfieldChange('example2');
   }
 
   public addExampleData3(): void {
     this.input = JSON.stringify(this.releaseService.getExample3(), null, 2);
+    this.onTextfieldChange('example3');
   }
 
   public processInput(): void {

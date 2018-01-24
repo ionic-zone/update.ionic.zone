@@ -9,7 +9,7 @@ export const NOTES = [
   {
     version: '2.3.0',
     data: [
-      { type: 'warning',  dep: { "@ionic-native/core": "3.1.0" },       text: 'Ionic Native 3 splits the plugin wrappers into individual packages for less code to load. You have to add the additional imports for the "wrappers" you use manually.<br> Also static classes (e.g. `InAppBrowser`) have been replaced by dependency injected properties (`public inAppBrowser: InAppBrowser` + `this.inAppBrowser`).', link: 'https://blog.ionicframework.com/ionic-native-3-x/' }, // TODO required change
+      { type: 'warning',  dep: { "@ionic-native/core": "3.1.0" },       text: 'Ionic Native 3 splits the plugin wrappers into individual packages for less code to load. You have to install the additional packages and imports for the "wrappers" you use manually.<br> Static classes (e.g. `InAppBrowser`) have been replaced by dependency injected properties (`public inAppBrowser: InAppBrowser` + `this.inAppBrowser`).', link: 'https://blog.ionicframework.com/ionic-native-3-x/' }, // TODO required change
     ]
   },
   {

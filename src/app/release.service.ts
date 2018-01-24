@@ -211,7 +211,7 @@ export class ReleaseService {
               console.log('sibling for ' + packageName + ' (' + pattern + '): ' + updatedPackageName + ' ' + updated[updatedPackageName] + ' -> ' + targetVersion);
               updated[updatedPackageName] = targetVersion;
               // TODO add note (somehow)
-              this._updateChange(updatedPackageName, targetVersion, '💯');
+              this._updateChange(updatedPackageName, targetVersion, '↗️');
             }
           }
         }
@@ -358,7 +358,7 @@ export class ReleaseService {
       "ionic-plugin-keyboard"
     ],
     "cordovaPlatforms": [],
-    "description": "yatsa: An Ionic project"
+    "description": "A pretty old Ionic project"
     };
   }
 

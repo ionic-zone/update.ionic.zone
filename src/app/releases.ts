@@ -32,8 +32,7 @@ export const RELEASES: Release[] = [
         "ionicons": "3.0.0",
         "rxjs": "5.5.2",
         "sw-toolbox": "3.6.0",
-        "zone.js": "0.8.18",
-        "foo": "bar"
+        "zone.js": "0.8.18"
       },
       "devDependencies": {
         "@ionic/app-scripts": "3.1.8",

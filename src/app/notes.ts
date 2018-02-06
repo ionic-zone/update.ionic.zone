@@ -66,7 +66,9 @@ export const NOTES = [
   {
     version: '3.8.0',
     data: [
-      { type: 'new',      dep: null,                                    text: 'iOS 11: Add `viewport-fit` Metatag to `index.html` for iPhone X support.', link: 'https://blog.ionicframework.com/ios-11-checklist/' }, // TODO required change
+      { type: 'new',      dep: null,                                    text: 'iOS 11 + iPhone X: Add `viewport-fit` metatag to `index.html` for iPhone X support.', link: 'https://blog.ionicframework.com/ios-11-checklist/' }, // TODO required change
+      { type: 'warning',  dep: null,                                    text: 'Regenerate resources with `ionic cordova resources`: iPhone X requires a new splashscreen size; Xcode 9 requires a new 1024×1024 sized icon for submission.', link: 'https://blog.ionicframework.com/ios-11-checklist/' }, // TODO required change
+      { type: 'warning',  dep: null,                                    text: 'iPhone X requires an update to `cordova-plugin-statusbar` to be installed.', link: 'https://blog.ionicframework.com/ios-11-checklist/' }, // TODO required change
     ]
   },
   {

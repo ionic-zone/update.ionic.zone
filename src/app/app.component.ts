@@ -1,6 +1,8 @@
 import { ReleaseService } from './release.service';
 import { MdlSnackbarService } from '@angular-mdl/core/components';
 import { Component } from '@angular/core';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2Facebook } from 'angulartics2/facebook';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +23,12 @@ export class AppComponent {
   versions = {};
   inputVersion = '';
 
-  constructor(private mdlSnackbarService: MdlSnackbarService, private releaseService: ReleaseService) {
+  constructor(
+    private mdlSnackbarService: MdlSnackbarService,
+    private releaseService: ReleaseService,
+    private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
+    private angulartics2Facebook: Angulartics2Facebook
+  ) {
     this.releases = this.releaseService.getAll();
     this.selectedVersionName = this.releaseService.getDefaultVersionName();
   }

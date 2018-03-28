@@ -13,30 +13,31 @@ export interface Release {
 export const RELEASES: Release[] = [
   {
     name: 'current (v3.9.2 + updated dependencies)',
-    date: '2018-01-19',
+    date: '2018-03-28',
     json: {
       "dependencies": {
-        "@angular/common": "5.0.0",
-        "@angular/compiler": "5.0.0",
-        "@angular/compiler-cli": "5.0.0",
-        "@angular/core": "5.0.0",
-        "@angular/forms": "5.0.0",
-        "@angular/http": "5.0.0",
-        "@angular/platform-browser": "5.0.0",
-        "@angular/platform-browser-dynamic": "5.0.0",
-        "@ionic-native/core": "4.5.1",
-        "@ionic-native/splash-screen": "4.5.1",
-        "@ionic-native/status-bar": "4.5.1",
+        "@angular/animations": "5.2.9",
+        "@angular/common": "5.2.9",
+        "@angular/compiler": "5.2.9",
+        "@angular/compiler-cli": "5.2.9",
+        "@angular/core": "5.2.9",
+        "@angular/forms": "5.2.9",
+        "@angular/http": "5.2.9",
+        "@angular/platform-browser": "5.2.9",
+        "@angular/platform-browser-dynamic": "5.2.9",
+        "@ionic-native/core": "4.5.3",
+        "@ionic-native/splash-screen": "4.5.3",
+        "@ionic-native/status-bar": "4.5.3",
         "@ionic/storage": "2.1.3",
         "ionic-angular": "3.9.2",
         "ionicons": "3.0.0",
-        "rxjs": "5.5.2",
+        "rxjs": "5.5.7",
         "sw-toolbox": "3.6.0",
-        "zone.js": "0.8.18"
+        "zone.js": "0.8.20"
       },
       "devDependencies": {
         "@ionic/app-scripts": "3.1.8",
-        "typescript": "2.4.2"
+        "typescript": "~2.6.2"
       }
     }
   },

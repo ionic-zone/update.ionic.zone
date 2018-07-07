@@ -3,10 +3,12 @@
 
   <mdl-layout-header>
       <mdl-layout-header-row>
-        <mdl-layout-title>update.ionic.zone</mdl-layout-title>
+        <mdl-layout-title>
+          <img src="assets/ionic-zone_blue_on_white.png" style="width:45px; margin-right:15px;">update.ionic.zone
+        </mdl-layout-title>
         <mdl-layout-spacer></mdl-layout-spacer>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="https://ionic.zone">Go to Ionic.Zone</a>
+            <a class="mdl-navigation__link" target="_blank" href="https://ionic.zone">Go to Ionic.Zone</a>
         </nav>
       </mdl-layout-header-row>
   </mdl-layout-header>
@@ -20,7 +22,7 @@
         <div class="demo-content mdl-cell mdl-cell--8-col mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 ">
 
           <p style="margin-bottom:30px;">
-            update.ionic.zone helps you upgrade your <a href="http://ionicframework.com/">Ionic Framework</a> project.
+            update.ionic.zone helps you update your <a target="_blank" href="http://ionicframework.com/">Ionic Framework</a> v2/3 project.
           </p>
 
           <mdl-tabs mdl-ripple [mdl-tab-active-index]="activeTab" (mdl-tab-active-changed)="tabChanged($event)">
@@ -89,7 +91,7 @@
                     <h3 class="mdl-typography--headline">How does it work in the background?</h3>
                     <p>This tool goes through your dependencies, compares them with the versions specified with the release of the selected Ionic version, and updates the values. It additionally analyzes the types of version changes and tries to give you helpful hints on what to keep in mind after running the install (e.g. where breaking changes might have been introduced etc).</p>
 
-                    <h4 class="mdl-typography--title">What dependencies this tool will update?</h4>
+                    <h4 class="mdl-typography--title">What dependencies will this tool update?</h4>
                     <ul>
                       <li>Ionic Framework</li>
                       <li>Angular</li>
@@ -99,9 +101,9 @@
                       <li>DevDependencies: Ionic App-Scripts, Ionic-CLI-Plugins, typescript</li>
                     </ul>
 
-                    <h4 class="mdl-typography--title">What this tool will not update?</h4>
+                    <h4 class="mdl-typography--title">What will this tool not update?</h4>
                     <ul>
-                      <li>All your custom dependencies</li>
+                      <li>Your custom dependencies</li>
                       <li>Your code</li>
                     </ul>
 
@@ -122,14 +124,14 @@
                     >
                   </mdl-textfield>
 
-                  <h4 class="mdl-typography--subhead">Update from `ionic-angular` {{versions['currentVersion']}} to {{versions['updatedVersion']}}</h4>
+                  <h4 class="mdl-typography--subhead">Updated from `ionic-angular` {{versions['currentVersion']}} to {{versions['updatedVersion']}}</h4>
 
                   <div>
 
                     <h3 class="mdl-typography--headline">How to use this?</h3>
                     <ol>
-                      <li>Copy the result back into your <code>package.json</code> file and run <code>npm install</code> to install the changed dependencies.</li>
-                      <li>Then check the <a href="#dependencies">"Changed dependencies"</a> table below for packages that are missing an update, manually update those if needed.</li>
+                      <li>Copy the result above back into your <code>package.json</code> file and run <code>npm install</code> to install the updated dependencies.</li>
+                      <li>Check the <a href="#dependencies">"Changed dependencies"</a> table below for packages that are missing an update, manually update those if needed.</li>
                       <li>Last read through the list of <a href="#manual">"Manual Changes"</a> and apply those.</li>
                     </ol>
                   </div>
@@ -138,7 +140,7 @@
                     <h3 class="mdl-typography--headline">Changed Dependencies</h3>
 
                     <p>
-                      These are the changes that were automatically applied to your `package.json` file.
+                      These are the changes that were automatically applied to your <code>package.json</code> file.
                     </p>
 
                     <h4 id="dependencies" class="mdl-typography--subhead">Dependencies</h4>
@@ -185,7 +187,7 @@
                     <h3 id="manual" class="mdl-typography--headline">Manual Changes</h3>
 
                     <p>
-                      These manual checks and changes could not automaticlly be applied to your `package.json` or concern other parts of your Ionic project. Please read through them carefully and handle those that apply to your project.
+                      These manual checks and changes could not automatically be applied to your <code>package.json</code> or concern other parts of your Ionic project. Please read through them carefully and handle those that apply to your project.
                     </p>
 
                     <div *ngFor="let n of notes">
@@ -215,9 +217,9 @@
       <div class="mdl-mini-footer--left-section">
         <ul class="mdl-mini-footer--link-list">
           <li><a href="/changelog">Changelog</a></li>
-          <li><a href="https://twitter.com/IonicZone">Twitter</a></li>
-          <li><a href="https://ionic.zone">Ionic.Zone</a></li>
-          <li><a href="https://github.com/ionic-zone/update.ionic.zone" target="_blank"><span class="icon"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span> GitHub</a></li>
+          <li><a target="_blank" href="https://twitter.com/IonicZone">Twitter</a></li>
+          <li><a target="_blank" href="https://ionic.zone">Ionic.Zone</a></li>
+          <li><a target="_blank" href="https://github.com/ionic-zone/update.ionic.zone" target="_blank"><span class="icon"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg></span> GitHub</a></li>
         </ul>
       </div>
     </footer>

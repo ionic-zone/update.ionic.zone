@@ -1,9 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular-mdl/core/scss/color-definitions";
 
-$color-primary: $palette-blue-700;
-$color-primary-dark: $palette-blue-900;
-$color-accent: $palette-blue-A400;
+/* For use in _color-definitions.scss */
+$palette-ioniczone:
+"238, 242, 248"
+"212, 223, 239"
+"184, 202, 228"
+"155, 181, 217"
+"133, 165, 208"
+"112, 149, 200"
+"104, 141, 194"
+"93, 130, 187"
+"83, 120, 180"
+"65, 103, 167"
+"251, 252, 255"
+"200, 219, 255"
+"149, 186, 255"
+"123, 170, 255";
+
+$palette-ioniczone-50: nth($palette-ioniczone, 1);
+$palette-ioniczone-100: nth($palette-ioniczone, 2);
+$palette-ioniczone-200: nth($palette-ioniczone, 3);
+$palette-ioniczone-300: nth($palette-ioniczone, 4);
+$palette-ioniczone-400: nth($palette-ioniczone, 5);
+$palette-ioniczone-500: nth($palette-ioniczone, 6);
+$palette-ioniczone-600: nth($palette-ioniczone, 7);
+$palette-ioniczone-700: nth($palette-ioniczone, 8);
+$palette-ioniczone-800: nth($palette-ioniczone, 9);
+$palette-ioniczone-900: nth($palette-ioniczone, 10);
+$palette-ioniczone-A100: nth($palette-ioniczone, 11);
+$palette-ioniczone-A200: nth($palette-ioniczone, 12);
+$palette-ioniczone-A400: nth($palette-ioniczone, 13);
+$palette-ioniczone-A700: nth($palette-ioniczone, 14);
+
+$color-primary: $palette-ioniczone-500;
+$color-primary-dark: $palette-ioniczone-700;
+$color-accent: $palette-ioniczone-900;
 $color-primary-contrast: $color-dark-contrast;
 $color-accent-contrast: $color-dark-contrast;
 

@@ -1,6 +1,6 @@
 # update.ionic.zone
 
-[update.ionic.zone](https://update.ionic.zone) helps you upgrade your Ionic Framework project.
+[update.ionic.zone](https://update.ionic.zone) helps you update your Ionic Framework project.
 
 Angular project built with Angular CLI.
 

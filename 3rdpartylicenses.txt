@@ -140,7 +140,7 @@ MIT
 MIT
 MIT
 
-rollbar@2.0.4
+rollbar@2.5.1
 MIT
 Copyright (c) 2014 Rollbar, Inc.
 

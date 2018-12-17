@@ -5,10 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MdlModule } from '@angular-mdl/core';
 import { MdlSelectModule } from '@angular-mdl/select';
-import { MarkdownModule } from 'ngx-md';
+import { NgxMdModule } from 'ngx-md';
 import { Angulartics2Module } from 'angulartics2';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { Angulartics2Facebook } from 'angulartics2/facebook';
+import { Angulartics2RouterlessModule } from 'angulartics2/routerlessmodule';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -33,8 +32,8 @@ const ROUTES: Routes = [
     RollbarModule.forRoot({
       accessToken: 'fdd0ae5eaee044dfb5dfced2df20f4dd'
     }),
-    MarkdownModule.forRoot(),
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics, Angulartics2Facebook])
+    NgxMdModule.forRoot(),
+    Angulartics2RouterlessModule.forRoot()
   ],
   providers: [ReleaseService],
   bootstrap: [AppComponent]

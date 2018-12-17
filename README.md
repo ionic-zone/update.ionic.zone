@@ -4,6 +4,25 @@
 
 Angular project built with Angular CLI.
 
+## "Features"
+
+- Input tab
+  - Dropdown with version selection
+  - Example button that populates input field with example `package.json` content
+  - Display `ionic-angular` version from `package.json` content if present (using `semver`)
+  - "Update" button that "calculates" updated output
+    - Shows "Snackbar" if 
+      - no input is present or 
+      - not valid JSON (using `@angular-mdl/core/components`)
+    - Input and Output are submitted to Rollbar for (potential) debugging (using `angular-rollbar`)
+- Output tab
+  - Shows updated `package.json`
+  - Displays "Changed Dependencies" table
+  - Displays "Manual Changes" table
+    - Markdown in text is rendered as HTML (using `ngx-md`)
+- Material Design (using `@angular-mdl/*`)
+- Visits and actions are tracked via Google Analytics and Facebook Pixel (using `angulartics2`)
+
 ## Installation
 
 * `npm install -g @angular/cli`

@@ -195,7 +195,12 @@
                       <table class="mdl-data-table">
                         <tbody>
                           <tr *ngFor="let d of n['data']">
-                            <td class="mdl-data-table__cell--non-numeric">{{d['emoji']}}</td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                              <!-- dirty hack to give the emojis a title -->
+                              <span *ngIf="d['emoji'] == '✳️'" title="New">{{d['emoji']}}</span>
+                              <span *ngIf="d['emoji'] == '⚠️'" title="Warning">{{d['emoji']}}</span>
+                              <span *ngIf="d['emoji'] == '📑'" title="Note">{{d['emoji']}}</span>
+                            </td>
                             <td class="mdl-data-table__cell--non-numeric" Markdown>{{d['text']}}</td>
                             <td style="white-space: nowrap;"><a *ngIf="d['link']" href="{{d['link']}}" target="_blank">Learn more</a></td>
                           </tr>

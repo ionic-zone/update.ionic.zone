@@ -31,6 +31,8 @@ export class AppComponent {
   ) {
     this.releases = this.releaseService.getAll();
     this.selectedVersionName = this.releaseService.getDefaultVersionName();
+    this.angulartics2GoogleAnalytics.startTracking();
+    this.angulartics2Facebook.startTracking();
   }
 
   public tabChanged({index}) {

@@ -16,7 +16,7 @@ Angular project built with Angular CLI.
 
 ### Build app
 
-* `ng build` or `ng build -prod`
+* `ng build` or `ng build --prod`
 * Artifacts generated to `dist/` directory.
 
 ### Running tests
@@ -36,7 +36,6 @@ Angular project built with Angular CLI.
 ### Deploy to `gh-pages` branch
 
 * `npm i -g angular-cli-ghpages`
-* `ng build -prod`
-* `echo update.ionic.zone > dist/CNAME`
-* `ngh`
+* `ng build --prod`
+* `ngh --cname=update.ionic.zone`
 * Check [update.ionic.zone](https://update.ionic.zone)
